@@ -5,7 +5,6 @@ __pycache__/
 *.sqlite3*
 .env
 runtime/
-/data
-/runtime
-/artifacts
+artifacts/
+.vscode/
 
