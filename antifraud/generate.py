@@ -1,4 +1,4 @@
-"""Seeded scenario generator. Labels reflect simulated intent, never real subscribers."""
+"""Воспроизводимый генератор сценариев. Метки относятся к искусственным ситуациям, а не к реальным абонентам."""
 import argparse
 from datetime import datetime, timedelta, timezone
 import json
@@ -8,7 +8,7 @@ import random
 from .features import extract_features
 from .schemas import CallStart, CompletedCall
 
-# name: label, history size range, mean duration, unanswered chance, target pool, regions, sibling count
+# Сценарий: метка, диапазон числа вызовов, средняя длительность, доля неответов, адресаты, регионы, число номеров.
 SCENARIOS = {
     "personal": (0, (5, 18), 120, .12, 5, 2, 1),
     "courier": (0, (30, 70), 24, .30, 60, 3, 1),
@@ -41,7 +41,7 @@ def scenario(rng, group, name, at):
                 ingress_trunk="demo_trunk", connection_type=connection, caller_identity_verified=verified)
     history = []
     size = rng.randint(*size_range)
-    # Overlapping noise deliberately leaves difficult benign/fraud cases.
+    # Перекрывающийся шум сохраняет сложные для различения легитимные и мошеннические случаи.
     mean *= rng.uniform(.5, 1.7)
     unanswered = max(.03, min(.98, unanswered + rng.uniform(-.15, .15)))
     for sibling in range(siblings):
@@ -78,7 +78,7 @@ def generate(root=Path("data"), seed=42, counts=(600, 400, 400)):
             for i in range(count):
                 name = list(SCENARIOS)[i % len(SCENARIOS)]
                 group = f"{split}_{i:05d}"
-                # Disjoint subscribers, destination IDs and time ranges across splits.
+                # Абоненты, адресаты и временные периоды не пересекаются между выборками.
                 at = datetime(2026, 1, 1, tzinfo=timezone.utc) + timedelta(days=split_index * 40, hours=i / 2)
                 history, call, label = scenario(rng, group, name, at)
                 for h in history:

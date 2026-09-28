@@ -1,4 +1,4 @@
-"""Local demonstration without a network connection or any real phone numbers."""
+"""Локальная демонстрация без подключения к телефонной сети и реальных номеров."""
 from datetime import timedelta
 import json
 from pathlib import Path

@@ -37,7 +37,7 @@ def test_emergency_ignores_unavailable_database_and_model(setup, destination):
 
     class Broken:
         def __getattr__(self, _):
-            raise AssertionError("Emergency route must not access DB or model")
+            raise AssertionError("Экстренный вызов не должен обращаться к базе или модели")
 
     engine = ScoringService(Broken(), Broken())
     result = engine.score_call(call.model_copy(update={"callee": destination}))
@@ -81,8 +81,7 @@ def test_verified_callback_and_revoke(setup):
     assert engine.score_call(call)["protection"]["kind"] == "verified_social_organization"
     store.revoke(request["id"], "Номер больше не принадлежит больнице")
     assert engine.score_call(call)["protection"] is None
-    actions = [r["action"] for r in store.audit_rows()]
-    assert "privilege_approved" in actions and "privilege_revoked" in actions
+    assert store.list_requests()[0]["status"] == "revoked"
 
 
 @pytest.mark.parametrize("update", [{"caller_identity_verified": False}, {"ingress_trunk": "attacker"},
@@ -120,7 +119,7 @@ def test_model_failure_is_fail_open(setup):
     store, model, call, _ = setup
     class Broken:
         def predict(self, _):
-            raise RuntimeError("simulated model fault")
+            raise RuntimeError("Искусственный отказ модели")
     for unavailable in (None, Broken()):
         result = ScoringService(store, unavailable).score_call(call)
         assert result["action"] == "allow" and result["status"] == "degraded"
@@ -206,38 +205,60 @@ def test_threshold_uses_fpr_budget():
     assert np.mean((scores >= threshold)[y == 0]) == 0
 
 
-def test_api_role_boundaries_and_workflow(setup):
+def test_api_without_keys_and_registry_workflow(setup):
     store, model, call, history = setup
-    keys = {"operator": "o"*32, "admin": "a"*32, "organizations": {"hospital": "h"*32}}
-    app = create_app(store, model, keys)
+    app = create_app(store, model)
     with TestClient(app) as client:
         assert client.get("/health").json()["auto_block"] is False
-        assert client.post("/v1/calls/score", json=call.model_dump(mode="json")).status_code == 401
-        assert client.post("/v1/calls/score", json=call.model_dump(mode="json"), headers={"X-API-Key": "h"*32}).status_code == 401
-        response = client.post("/v1/calls/score", json=call.model_dump(mode="json"), headers={"X-API-Key": "o"*32})
+        response = client.post("/v1/calls/score", json=call.model_dump(mode="json"))
         assert response.status_code == 200 and response.json()["status"] == "scored"
-        req = client.post("/v1/privileges/requests", json={"number": call.caller, "justification": "Проверить номер больницы"}, headers={"X-API-Key": "h"*32})
-        assert req.status_code == 201 and req.json()["organization"] == "hospital"
-        rid = req.json()["id"]
-        body = {"verified_subscriber_id": call.subscriber_id, "verified_operator": call.source_operator,
-                "verified_trunk": call.ingress_trunk, "evidence_reference": "ownership-test",
-                "expires_at": (utcnow()+timedelta(days=1)).isoformat()}
-        assert client.post(f"/v1/admin/privileges/{rid}/approve", json=body, headers={"X-API-Key": "h"*32}).status_code == 401
-        assert client.post(f"/v1/admin/privileges/{rid}/approve", json=body, headers={"X-API-Key": "a"*32}).status_code == 200
-        assert client.post("/v1/history", json=[history[0].model_dump(mode="json")], headers={"X-API-Key": "o"*32}).json()["inserted"] == 0
-        assert client.get("/v1/admin/audit", headers={"X-API-Key": "a"*32}).status_code == 200
+        samples = client.get("/v1/demo/scenarios").json()
+        hospital = next(s for s in samples if s["id"] == "hospital")
+        entries = client.get("/v1/privileges").json()
+        rid = next(e["id"] for e in entries if e["number"] == hospital["call"]["caller"])
+        assert client.delete(f"/v1/privileges/{rid}").status_code == 200
+        payload = {"number": hospital["call"]["caller"], "organization": "Больница"}
+        added = client.post("/v1/privileges", json=payload)
+        assert added.status_code == 201 and added.json()["status"] == "approved"
+        protected = {**hospital["call"], "started_at": utcnow().isoformat()}
+        assert client.post("/v1/calls/score", json=protected).json()["status"] == "protected"
+        assert client.post("/v1/history", json=[history[0].model_dump(mode="json")]).json()["inserted"] == 0
+        assert "x-api-key" not in client.get("/openapi.json").text.lower()
 
 
-def test_role_keys_must_be_distinct(setup):
+def test_visual_interface_and_scenarios(setup):
     store, model, _, _ = setup
-    with pytest.raises(ValueError):
-        create_app(store, model, {"operator": "x"*32, "admin": "x"*32, "organizations": {}})
+    with TestClient(create_app(store, model)) as client:
+        page = client.get("/")
+        assert page.status_code == 200 and 'lang="ru"' in page.text
+        assert "Что повлияло на оценку" in page.text
+        assert client.get("/static/app.css").status_code == 200
+        assert client.get("/static/app.js").status_code == 200
+        samples = client.get("/v1/demo/scenarios").json()
+        assert len(samples) == 8
+        assert client.get("/v1/demo/scenarios").json() == samples
+        for sample in samples:
+            result = client.post("/v1/calls/score", json=sample["call"]).json()
+            assert result["auto_block"] is False
+            if sample["id"] in {"emergency", "hospital"}:
+                assert result["status"] == "protected"
+            if sample["id"] == "spoof":
+                assert result["protection"] is None
+        assert client.get("/v1/demo/metrics").json()["synthetic_only"] is True
+
+
+def test_demo_registry_rejects_unknown_number(setup):
+    store, model, _, _ = setup
+    with TestClient(create_app(store, model)) as client:
+        result = client.post("/v1/privileges", json={"number": "test:unknown", "organization": "Больница"})
+        assert result.status_code == 409
+        assert "нет этого номера" in result.json()["detail"]
 
 
 def test_dataset_split_has_disjoint_owners_and_time_ranges():
     path = Path("data/queries.jsonl")
     if not path.exists():
-        pytest.skip("Generate data to verify the bundled dataset")
+        pytest.skip("Сначала создайте данные для проверки разбиения выборки")
     groups = {}
     for line in path.read_text(encoding="utf-8").splitlines():
         row = json.loads(line)

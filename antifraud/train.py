@@ -19,7 +19,7 @@ def read_jsonl(path):
 
 
 def select_threshold(y, scores, max_fpr=.01):
-    """Maximize validation recall under the empirical FPR budget; ties prefer higher threshold."""
+    """Максимизируем полноту на валидации при ограничении ложных тревог; при равенстве выбираем больший порог."""
     candidates = [float(s) for s in np.unique(scores)] + [1.000000001]
     feasible = []
     for threshold in candidates:
@@ -73,7 +73,7 @@ def train(data=Path("data"), output=Path("artifacts")):
     for row, expected in zip(xv, pv):
         actual = portable.predict(dict(zip(FEATURE_NAMES, row)))["model_output"]
         if abs(actual - expected) > 1e-10:
-            raise AssertionError("Exported model does not match sklearn inference")
+            raise AssertionError("Экспортированная модель не совпадает с результатом scikit-learn")
     report = {"synthetic_only": True, "warning": "Метрики только на синтетике; качество на закрытых данных не измерено.",
               "model_version": artifact["version"], "validation_fpr_budget": .01,
               "review_threshold": threshold, "explanation_export_max_error": 1e-10,

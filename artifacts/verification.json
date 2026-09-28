@@ -1,7 +1,24 @@
 {
   "python_version": "3.12.14",
-  "tests": {"command": "python -m pytest -q", "passed": 37, "failed": 0, "warnings": 1, "warning": "Starlette TestClient announces future httpx2 migration"},
-  "demo": {"command": "python -m antifraud.demo", "exit_code": 0, "cases": 11},
-  "model_export": {"compared_to": "sklearn LogisticRegression predict_proba", "validation_rows": 400, "absolute_error_tolerance": 1e-10},
-  "limitations": ["Synthetic data only", "No operator network integration", "No load or latency SLA verification", "No call blocking implemented", "Held-out FPR exceeds 1 percent target"]
+  "tests": {
+    "command": "python -m pytest -q",
+    "passed": 38,
+    "failed": 0,
+    "warnings": 1
+  },
+  "localization": {
+    "comments_checked": 10,
+    "docstrings_checked": 11,
+    "untranslated": 0
+  },
+  "browser_checks": [
+    "Восемь сценариев",
+    "Неизвестный номер без балла",
+    "Ошибка формата номера",
+    "Раскрытие 15 факторов",
+    "Отзыв и добавление привилегии",
+    "Настольный и узкий макеты"
+  ],
+  "authentication": "Удалена для локального демо",
+  "model": "Параметры модели не изменялись; данные синтетические"
 }

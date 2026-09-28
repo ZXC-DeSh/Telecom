@@ -18,7 +18,7 @@ class ScoringService:
                 "auto_block": False, "reason": reason, "protection": protection, "factors": []}
 
     def score_call(self, call: CallStart):
-        # Emergency protection has no dependency on model, CDR database or registry.
+        # Защита экстренного вызова не зависит от модели, базы истории и реестра организаций.
         if call.callee in EMERGENCY_CODES or call.destination_service == "emergency":
             result = self.safe_result("Экстренный вызов проходит без ожидания скоринга",
                                       protection={"kind": "emergency_destination"})
@@ -43,19 +43,9 @@ class ScoringService:
                                        "review_threshold": threshold,
                                        "reason": "Рекомендована проверка оператором" if action == "review" else "Порог проверки не достигнут"})
             except Exception:
-                log.exception("Scoring failed; returning allow without a score")
+                log.exception("Ошибка скоринга: пропускаем вызов без оценки риска")
                 result = self.safe_result("Ошибка скоринга, вызов пропускается", "degraded")
         result["call_id"] = call.call_id
-        # Emergency path must not wait for synchronous database I/O.
-        if (result.get("protection") or {}).get("kind") == "emergency_destination":
-            result["audit_status"] = "upstream_required"
-            return result
-        try:
-            self.store.record_decision(call.call_id, result)
-            result["audit_status"] = "recorded"
-        except Exception:
-            log.exception("Decision audit unavailable")
-            result["audit_status"] = "unavailable"
         return result
 
     def score_number(self, query: NumberQuery):
@@ -74,9 +64,11 @@ class ScoringService:
             else:
                 prediction = self.model.predict(features)
                 result = {**prediction, "status": "scored", "auto_block": False,
-                          "action": "review" if prediction["model_output"] >= self.model.artifact["review_threshold"] else "allow"}
+                          "action": "review" if prediction["model_output"] >= self.model.artifact["review_threshold"] else "allow",
+                          "review_threshold": self.model.artifact["review_threshold"], "features": features,
+                          "reason": "Оценка поведения номера по доступной истории"}
             return {**result, "number": query.number, "at": query.at.isoformat(), "history_calls": n,
                     "context": "Метаданные последнего доступного вызова; это не пожизненный рейтинг владельца номера"}
         except Exception:
-            log.exception("Number scoring failed")
+            log.exception("Не удалось оценить номер")
             return {"number": query.number, **self.safe_result("Сервис временно недоступен", "degraded")}

@@ -34,7 +34,7 @@ def eligible_history(history: list[CompletedCall], call: CallStart) -> list[Comp
 
 
 def extract_features(history: list[CompletedCall], call: CallStart, home_country="RU"):
-    """As-of features: future, unfinished and not-yet-received CDRs are excluded."""
+    """Признаки на момент оценки: будущие, незавершённые и ещё не полученные записи исключаются."""
     prior = eligible_history(history, call)
     own = [h for h in prior if h.caller == call.caller
            and h.subscriber_id == call.subscriber_id]
@@ -45,7 +45,7 @@ def extract_features(history: list[CompletedCall], call: CallStart, home_country
     by_number = defaultdict(list)
     for h in prior:
         graph.add_edge(("number", h.caller), ("number", h.callee))
-        # Subscriber identifiers must be the operator's stable, pseudonymous IDs.
+        # Используем устойчивые псевдонимные идентификаторы абонентов из данных оператора.
         owners.add_edge(("subscriber", h.subscriber_id), ("number", h.caller))
         if h.subscriber_id == call.subscriber_id:
             by_number[h.caller].append(h)
@@ -58,7 +58,7 @@ def extract_features(history: list[CompletedCall], call: CallStart, home_country
         total_targets = sum(map(len, targets))
         disjointness = len(set.union(*targets)) / max(total_targets, 1)
         means = [sum(h.duration_seconds for h in by_number[n]) / len(by_number[n]) for n in active]
-        # Same hour + similar duration pattern, not disjointness alone.
+        # Проверяем общий час активности и сходство длительностей, а не только разные списки адресатов.
         buckets = [{int(h.started_at.timestamp() // 3600) for h in by_number[n]} for n in active]
         synchronized = bool(set.intersection(*buckets))
         duration_similarity = 1 / (1 + (max(means) - min(means)) / 10)

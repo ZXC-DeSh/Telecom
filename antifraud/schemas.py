@@ -5,16 +5,16 @@ from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validato
 
 
 def normalize_number(value: str) -> str:
-    """Exact dialled numbers only; no substring matching or extension stripping."""
+    """Точное сопоставление набранного номера без поиска подстрок и удаления добавочных цифр."""
     number = re.sub(r"[ ()-]", "", value.strip())
     if re.fullmatch(r"test:[a-zA-Z0-9_]+", number):
-        return number  # Non-dialable namespace for generated fixtures.
+        return number  # Недозваниваемые идентификаторы для синтетических примеров.
     if re.fullmatch(r"[0-9]{3}", number):
         return number
     if re.fullmatch(r"8[0-9]{10}", number):
         number = "+7" + number[1:]
     if not re.fullmatch(r"\+[1-9][0-9]{7,14}", number):
-        raise ValueError("Expected E.164, a three-digit service code, or test:<id>")
+        raise ValueError("Введите номер в формате +7…, трёхзначный код службы или test:<идентификатор>")
     return number
 
 
@@ -34,7 +34,7 @@ class CallStart(StrictModel):
     destination_region: str = Field(min_length=1, max_length=100)
     connection_type: Literal["mobile", "fixed", "voip"]
     caller_identity_verified: bool = False
-    # Both fields must come from authenticated operator signalling, not caller ID.
+    # Подтверждение источника и тип назначения поступают от оператора, а не из отображаемого номера.
     destination_service: Literal["ordinary", "emergency"] = "ordinary"
 
     @field_validator("caller", "callee")
@@ -52,11 +52,11 @@ class CompletedCall(CallStart):
     @model_validator(mode="after")
     def chronology(self):
         if self.ended_at < self.started_at or self.observed_at < self.ended_at:
-            raise ValueError("Require started_at <= ended_at <= observed_at")
+            raise ValueError("Время начала не может быть позже окончания, а окончание — позже получения записи")
         if self.duration_seconds > (self.ended_at - self.started_at).total_seconds():
-            raise ValueError("Duration exceeds the call interval")
+            raise ValueError("Длительность разговора превышает интервал соединения")
         if not self.answered and self.duration_seconds != 0:
-            raise ValueError("Unanswered call must have zero conversation duration")
+            raise ValueError("У неотвеченного вызова длительность разговора должна быть нулевой")
         return self
 
 
@@ -90,3 +90,20 @@ class Approval(StrictModel):
 
 class Revocation(StrictModel):
     reason: str = Field(min_length=5, max_length=1000)
+
+
+class RegistryNumber(StrictModel):
+    number: str
+    organization: str = Field(min_length=2, max_length=150)
+
+    @field_validator("number")
+    @classmethod
+    def number_format(cls, value: str) -> str:
+        return normalize_number(value)
+
+    @field_validator("organization")
+    @classmethod
+    def organization_name(cls, value: str) -> str:
+        if len(value.strip()) < 2:
+            raise ValueError("Укажите название организации")
+        return value.strip()

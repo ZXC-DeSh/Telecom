@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "telecom-antifraud"
-version = "0.1.0"
-description = "Explainable metadata-only telecom antifraud demonstrator"
+version = "0.2.0"
+description = "Демонстрация объяснимого телеком-антифрода по метаданным"
 requires-python = ">=3.11"
 dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1", "scikit-learn>=1.5,<2", "networkx>=3.3,<4", "numpy>=1.26,<3"]
 

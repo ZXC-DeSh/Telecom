@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f8">
+  <title>Телеком — антифрод без прослушки</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%232e51ec'/%3E%3Cpath d='M10 20h4l3-8 6 16 3-8h4' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/app.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Телеком, главная">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="currentColor"/><path d="M9 20h6l3-9 5 18 3-9h5" fill="none" stroke="white" stroke-width="2.5" stroke-linejoin="round"/></svg>
+      <span>телеком<span class="brand-sub">АНТИФРОД</span></span>
+    </a>
+    <nav aria-label="Основная навигация">
+      <button type="button" class="nav-link active" id="nav-score" aria-current="page">Оценка вызова</button>
+      <button type="button" class="nav-link" id="nav-registry">Привилегированные номера</button>
+    </nav>
+    <a class="docs-link" href="/docs" target="_blank" rel="noopener">API <span aria-hidden="true">↗</span></a>
+    <span class="demo-label"><span></span> Локальное демо</span>
+  </header>
+
+  <main>
+    <section id="score-page">
+      <div class="page-heading">
+        <div><p class="eyebrow">АНТИФРОД БЕЗ ПРОСЛУШКИ</p><h1>Проверка вызова</h1><p class="intro">Оцените звонок по метаданным и узнайте, что повлияло на решение.</p></div>
+        <div class="model-state" id="model-state"><i></i><span>Подключаем модель</span></div>
+      </div>
+
+      <div class="workspace">
+        <div class="analysis-column">
+          <form id="number-form" class="search-box">
+            <label for="number-input">Проверить свой номер</label>
+            <div class="input-row"><span class="search-symbol" aria-hidden="true">⌕</span><input id="number-input" name="number" type="text" placeholder="+7 (999) 123-45-67 или test:…" required autocomplete="off" spellcheck="false"><button class="primary-button" type="submit" id="number-submit">Проверить <span aria-hidden="true">→</span></button></div>
+            <p>Оценка строится по загруженной истории. Новый номер не считается безопасным автоматически.</p>
+          </form>
+
+          <p class="error-message" id="score-error" role="alert" hidden></p>
+          <article class="result-card" id="result-card" aria-live="polite" aria-busy="true">
+            <div class="card-topline"><span class="section-label">РЕЗУЛЬТАТ АНАЛИЗА</span><span class="status-pill" id="risk-badge">Загрузка</span></div>
+            <div class="call-heading"><div class="call-details"><h2 id="call-title">Готовим пример вызова</h2><div class="phone-route"><span id="caller-display">—</span><span class="route-arrow" aria-hidden="true">→</span><span id="callee-display">—</span></div><p id="call-meta" class="muted">Загружаем синтетические данные</p></div><div class="score-box"><span class="score-label" id="score-label">Риск вызова</span><div><strong id="risk-score">—</strong><span id="score-denominator">/ 100</span></div></div></div>
+            <div id="score-scale"><div class="risk-track"><div id="risk-fill"></div><span id="threshold-marker" title="Порог рекомендации проверки"></span></div><div class="scale-labels"><span>Низкий риск</span><span id="threshold-label">Порог проверки</span><span>Высокий риск</span></div></div>
+            <div class="decision" id="decision"><span class="decision-icon" aria-hidden="true">↗</span><div><strong id="decision-title">Ожидаем оценку</strong><p id="decision-description">Вызовы не блокируются автоматически.</p></div><span class="no-block">Блокировка отключена</span></div>
+            <div class="history-stats" id="history-stats"><div><span>Вызовов за час</span><strong id="stat-calls">—</strong></div><div><span>Регионов за час</span><strong id="stat-regions">—</strong></div><div><span>Коротких за сутки</span><strong id="stat-short">—</strong></div></div>
+            <div class="factors-section" id="factors-section">
+              <div class="section-heading"><h3>Что повлияло на оценку</h3><button type="button" class="text-button" id="toggle-factors" aria-expanded="false">Все факторы</button></div>
+              <div class="factor-legend"><span><i class="red-dot"></i> Повышает риск</span><span><i class="blue-dot"></i> Снижает риск</span></div>
+              <div id="factor-list" class="factor-list"></div>
+              <details class="explanation"><summary>Как читать вклад факторов</summary><p>Полосы показывают вклад признака в логарифм отношения шансов. Это не баллы и не проценты. Красные факторы повышают оценку, синие — снижают. Итог учитывает все факторы и базовый уровень модели.</p><p id="model-equation"></p></details>
+            </div>
+            <div id="empty-state" class="empty-state" hidden><div class="empty-icon" aria-hidden="true">✓</div><h3 id="empty-title"></h3><p id="empty-description"></p></div>
+            <div class="card-footer"><span id="assessment-time">Оценка по метаданным</span><button type="button" class="text-button" id="copy-number">Скопировать ID номера</button></div>
+          </article>
+          <p class="data-caption">Без аудио и расшифровок. Отображаемые номера замаскированы, примеры полностью синтетические.</p>
+        </div>
+
+        <aside class="scenarios-panel">
+          <div class="section-heading"><h2>Попробуйте сценарий</h2><span class="count-tag" id="scenario-count">8</span></div><p class="muted scenario-intro">Сравните поведение разных звонков.</p>
+          <div id="scenario-list" class="scenario-list" aria-label="Примеры вызовов"></div>
+          <div class="emergency-note"><span class="shield-icon" aria-hidden="true">+</span><div><strong>Скорая помощь — вне блокировок</strong><p>Вызов на 103 или 112 проходит независимо от риска номера.</p></div></div>
+          <div class="dataset-note"><span class="section-label">ПРОВЕРКА НА СИНТЕТИКЕ</span><div><strong id="test-count">—</strong><span>примеров в тесте</span></div><div><strong id="test-fpr">—</strong><span>ложных тревог</span></div><p>Результаты демонстрационные.<br>Качество на реальных данных не измерено.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="registry-page" hidden>
+      <div class="page-heading"><div><p class="eyebrow">ОБЩЕСТВЕННО ВАЖНЫЕ ОРГАНИЗАЦИИ</p><h1>Привилегированные номера</h1><p class="intro">Звонки известных организаций проходят с учётом подтверждения источника.</p></div></div>
+      <div class="registry-layout">
+        <form class="registry-form" id="registry-form"><h2>Добавить организацию</h2><p class="muted">Выберите номер из истории вызовов. В демо добавление выполняется сразу, без согласования.</p><label for="organization-input">Название организации</label><input id="organization-input" required minlength="2" maxlength="150" placeholder="Например, городская больница"><label for="registry-number">Номер или тестовый ID</label><input id="registry-number" required placeholder="test:… или +7…" spellcheck="false"><button type="button" class="text-button fill-number" id="use-selected">Подставить номер выбранного примера</button><button class="primary-button" type="submit">Добавить в реестр <span aria-hidden="true">+</span></button><p id="registry-message" role="status"></p></form>
+        <div class="registry-list-card"><div class="section-heading"><h2>Номера в реестре</h2><span class="count-tag" id="registry-count">0</span></div><p class="muted">Совпадение только номера не даёт привилегию: источник вызова тоже должен совпадать.</p><div id="registry-list"></div></div>
+      </div>
+    </section>
+    <footer class="page-footer"><span>Телеком будущего <span class="footer-divider">/</span> Антифрод по метаданным</span><span>Python · scikit-learn · NetworkX · FastAPI</span></footer>
+  </main>
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>

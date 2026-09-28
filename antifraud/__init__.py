@@ -1,1 +1,1 @@
-"""Metadata-only antifraud. This application never routes or blocks calls."""
+"""Антифрод по метаданным. Приложение не маршрутизирует и не блокирует вызовы."""

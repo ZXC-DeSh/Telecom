@@ -2,12 +2,12 @@
   {
     "scenario": "personal",
     "result": {
-      "risk_score": 4.06,
-      "model_output": 0.040566029325943456,
+      "risk_score": 3.98,
+      "model_output": 0.03981778699834237,
       "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
       "model_version": "synthetic-logistic-dce9d685ae40",
       "baseline_log_odds": -1.0969601086769971,
-      "total_log_odds": -3.1634124964344577,
+      "total_log_odds": -3.18280934969904,
       "contribution_unit": "log_odds; вклады не являются процентными пунктами",
       "factors": [
         {
@@ -83,22 +83,22 @@
           "log_odds_contribution": 0.07050468514952668
         },
         {
-          "feature": "hour_cos_utc",
-          "description": "Время UTC циклическая компонента cos",
-          "value": -0.4032341384788888,
-          "log_odds_contribution": 0.04075062292948571
-        },
-        {
           "feature": "first_second_ratio_24h",
           "description": "Доля завершений в первую секунду",
           "value": 0.0,
           "log_odds_contribution": -0.035740663033682125
         },
         {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.2181817064033381,
+          "log_odds_contribution": 0.02212630362494849
+        },
+        {
           "feature": "hour_sin_utc",
           "description": "Время UTC циклическая компонента sin",
-          "value": -0.9150968416321785,
-          "log_odds_contribution": -0.011948230786880587
+          "value": -0.975908163195148,
+          "log_odds_contribution": -0.012720764746925455
         }
       ],
       "status": "scored",
@@ -119,25 +119,24 @@
         "foreign_ingress": 0.0,
         "voip": 0.0,
         "unverified_identity": 0.0,
-        "hour_sin_utc": -0.9150968416321785,
-        "hour_cos_utc": -0.4032341384788888
+        "hour_sin_utc": -0.975908163195148,
+        "hour_cos_utc": -0.2181817064033381
       },
       "history_calls": 8,
       "review_threshold": 0.6946663610181804,
       "reason": "Порог проверки не достигнут",
-      "call_id": "query_demo_0",
-      "audit_status": "recorded"
+      "call_id": "query_demo_0"
     }
   },
   {
     "scenario": "fraud_mass_dial",
     "result": {
-      "risk_score": 99.64,
-      "model_output": 0.9963738373765334,
+      "risk_score": 99.63,
+      "model_output": 0.9963030772158206,
       "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
       "model_version": "synthetic-logistic-dce9d685ae40",
       "baseline_log_odds": -1.0969601086769971,
-      "total_log_odds": 5.615947565293371,
+      "total_log_odds": 5.5965507120287885,
       "contribution_unit": "log_odds; вклады не являются процентными пунктами",
       "factors": [
         {
@@ -207,12 +206,6 @@
           "log_odds_contribution": -0.06464806593582799
         },
         {
-          "feature": "hour_cos_utc",
-          "description": "Время UTC циклическая компонента cos",
-          "value": -0.4032341384788888,
-          "log_odds_contribution": 0.04075062292948571
-        },
-        {
           "feature": "first_second_ratio_24h",
           "description": "Доля завершений в первую секунду",
           "value": 0.0,
@@ -225,10 +218,16 @@
           "log_odds_contribution": 0.030746136154371568
         },
         {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.2181817064033381,
+          "log_odds_contribution": 0.02212630362494849
+        },
+        {
           "feature": "hour_sin_utc",
           "description": "Время UTC циклическая компонента sin",
-          "value": -0.9150968416321785,
-          "log_odds_contribution": -0.011948230786880587
+          "value": -0.975908163195148,
+          "log_odds_contribution": -0.012720764746925455
         }
       ],
       "status": "scored",
@@ -249,25 +248,24 @@
         "foreign_ingress": 1.0,
         "voip": 1.0,
         "unverified_identity": 1.0,
-        "hour_sin_utc": -0.9150968416321785,
-        "hour_cos_utc": -0.4032341384788888
+        "hour_sin_utc": -0.975908163195148,
+        "hour_cos_utc": -0.2181817064033381
       },
       "history_calls": 68,
       "review_threshold": 0.6946663610181804,
       "reason": "Рекомендована проверка оператором",
-      "call_id": "query_demo_1",
-      "audit_status": "recorded"
+      "call_id": "query_demo_1"
     }
   },
   {
     "scenario": "fraud_fanout",
     "result": {
-      "risk_score": 99.34,
-      "model_output": 0.9934133162994667,
+      "risk_score": 99.33,
+      "model_output": 0.9932851744983956,
       "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
       "model_version": "synthetic-logistic-dce9d685ae40",
       "baseline_log_odds": -1.0969601086769971,
-      "total_log_odds": 5.016096817592748,
+      "total_log_odds": 4.996699964328166,
       "contribution_unit": "log_odds; вклады не являются процентными пунктами",
       "factors": [
         {
@@ -343,22 +341,22 @@
           "log_odds_contribution": -0.06464806593582799
         },
         {
-          "feature": "hour_cos_utc",
-          "description": "Время UTC циклическая компонента cos",
-          "value": -0.4032341384788888,
-          "log_odds_contribution": 0.04075062292948571
-        },
-        {
           "feature": "first_second_ratio_24h",
           "description": "Доля завершений в первую секунду",
           "value": 0.0,
           "log_odds_contribution": -0.035740663033682125
         },
         {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.2181817064033381,
+          "log_odds_contribution": 0.02212630362494849
+        },
+        {
           "feature": "hour_sin_utc",
           "description": "Время UTC циклическая компонента sin",
-          "value": -0.9150968416321785,
-          "log_odds_contribution": -0.011948230786880587
+          "value": -0.975908163195148,
+          "log_odds_contribution": -0.012720764746925455
         }
       ],
       "status": "scored",
@@ -379,25 +377,24 @@
         "foreign_ingress": 0.0,
         "voip": 1.0,
         "unverified_identity": 1.0,
-        "hour_sin_utc": -0.9150968416321785,
-        "hour_cos_utc": -0.4032341384788888
+        "hour_sin_utc": -0.975908163195148,
+        "hour_cos_utc": -0.2181817064033381
       },
       "history_calls": 30,
       "review_threshold": 0.6946663610181804,
       "reason": "Рекомендована проверка оператором",
-      "call_id": "query_demo_2",
-      "audit_status": "recorded"
+      "call_id": "query_demo_2"
     }
   },
   {
     "scenario": "hospital",
     "result": {
       "risk_score": 0.06,
-      "model_output": 0.0005787526639614532,
+      "model_output": 0.000567641168195569,
       "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
       "model_version": "synthetic-logistic-dce9d685ae40",
       "baseline_log_odds": -1.0969601086769971,
-      "total_log_odds": -7.454056429411338,
+      "total_log_odds": -7.47345328267592,
       "contribution_unit": "log_odds; вклады не являются процентными пунктами",
       "factors": [
         {
@@ -467,16 +464,16 @@
           "log_odds_contribution": 0.07050468514952668
         },
         {
-          "feature": "hour_cos_utc",
-          "description": "Время UTC циклическая компонента cos",
-          "value": -0.4032341384788888,
-          "log_odds_contribution": 0.04075062292948571
-        },
-        {
           "feature": "first_second_ratio_24h",
           "description": "Доля завершений в первую секунду",
           "value": 0.0,
           "log_odds_contribution": -0.035740663033682125
+        },
+        {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.2181817064033381,
+          "log_odds_contribution": 0.02212630362494849
         },
         {
           "feature": "short_ratio_24h",
@@ -487,8 +484,8 @@
         {
           "feature": "hour_sin_utc",
           "description": "Время UTC циклическая компонента sin",
-          "value": -0.9150968416321785,
-          "log_odds_contribution": -0.011948230786880587
+          "value": -0.975908163195148,
+          "log_odds_contribution": -0.012720764746925455
         }
       ],
       "status": "scored",
@@ -509,14 +506,13 @@
         "foreign_ingress": 0.0,
         "voip": 0.0,
         "unverified_identity": 0.0,
-        "hour_sin_utc": -0.9150968416321785,
-        "hour_cos_utc": -0.4032341384788888
+        "hour_sin_utc": -0.975908163195148,
+        "hour_cos_utc": -0.2181817064033381
       },
       "history_calls": 66,
       "review_threshold": 0.6946663610181804,
       "reason": "Порог проверки не достигнут",
-      "call_id": "query_demo_3",
-      "audit_status": "recorded"
+      "call_id": "query_demo_3"
     }
   },
   {
@@ -530,23 +526,22 @@
       "protection": {
         "kind": "verified_social_organization",
         "organization": "demo_hospital",
-        "registry_id": "89aa9ed9-2de4-46e6-939e-dc3a60a3a76a",
+        "registry_id": "07fbc6b5-fc35-4633-ac4b-7ee60fac37ac",
         "reason": "Подтверждённый обратный звонок общественно важной организации"
       },
       "factors": [],
-      "call_id": "query_demo_3",
-      "audit_status": "recorded"
+      "call_id": "query_demo_3"
     }
   },
   {
     "scenario": "spoofed_hospital",
     "result": {
       "risk_score": 0.25,
-      "model_output": 0.0025409967417662992,
+      "model_output": 0.0024923064062884457,
       "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
       "model_version": "synthetic-logistic-dce9d685ae40",
       "baseline_log_odds": -1.0969601086769971,
-      "total_log_odds": -5.972654626356059,
+      "total_log_odds": -5.992051312268939,
       "contribution_unit": "log_odds; вклады не являются процентными пунктами",
       "factors": [
         {
@@ -616,16 +611,16 @@
           "log_odds_contribution": 0.07050468514952668
         },
         {
-          "feature": "hour_cos_utc",
-          "description": "Время UTC циклическая компонента cos",
-          "value": -0.4032289066837904,
-          "log_odds_contribution": 0.04075009638346113
-        },
-        {
           "feature": "first_second_ratio_24h",
           "description": "Доля завершений в первую секунду",
           "value": 0.0,
           "log_odds_contribution": -0.035740663033682125
+        },
+        {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.2181779523686404,
+          "log_odds_contribution": 0.022125925805861722
         },
         {
           "feature": "short_ratio_24h",
@@ -636,8 +631,8 @@
         {
           "feature": "hour_sin_utc",
           "description": "Время UTC циклическая компонента sin",
-          "value": -0.9150991469860493,
-          "log_odds_contribution": -0.011948260073600711
+          "value": -0.9759090024690966,
+          "log_odds_contribution": -0.012720775408881328
         }
       ],
       "status": "scored",
@@ -658,25 +653,24 @@
         "foreign_ingress": 0.0,
         "voip": 0.0,
         "unverified_identity": 1.0,
-        "hour_sin_utc": -0.9150991469860493,
-        "hour_cos_utc": -0.4032289066837904
+        "hour_sin_utc": -0.9759090024690966,
+        "hour_cos_utc": -0.2181779523686404
       },
       "history_calls": 66,
       "review_threshold": 0.6946663610181804,
       "reason": "Порог проверки не достигнут",
-      "call_id": "query_demo_3",
-      "audit_status": "recorded"
+      "call_id": "query_demo_3"
     }
   },
   {
     "scenario": "revoked_privilege",
     "result": {
       "risk_score": 0.06,
-      "model_output": 0.0005787523424580398,
+      "model_output": 0.0005676409478029543,
       "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
       "model_version": "synthetic-logistic-dce9d685ae40",
       "baseline_log_odds": -1.0969601086769971,
-      "total_log_odds": -7.454056985244082,
+      "total_log_odds": -7.473453671156962,
       "contribution_unit": "log_odds; вклады не являются процентными пунктами",
       "factors": [
         {
@@ -746,16 +740,16 @@
           "log_odds_contribution": 0.07050468514952668
         },
         {
-          "feature": "hour_cos_utc",
-          "description": "Время UTC циклическая компонента cos",
-          "value": -0.4032289066837904,
-          "log_odds_contribution": 0.04075009638346113
-        },
-        {
           "feature": "first_second_ratio_24h",
           "description": "Доля завершений в первую секунду",
           "value": 0.0,
           "log_odds_contribution": -0.035740663033682125
+        },
+        {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.2181779523686404,
+          "log_odds_contribution": 0.022125925805861722
         },
         {
           "feature": "short_ratio_24h",
@@ -766,8 +760,8 @@
         {
           "feature": "hour_sin_utc",
           "description": "Время UTC циклическая компонента sin",
-          "value": -0.9150991469860493,
-          "log_odds_contribution": -0.011948260073600711
+          "value": -0.9759090024690966,
+          "log_odds_contribution": -0.012720775408881328
         }
       ],
       "status": "scored",
@@ -788,25 +782,24 @@
         "foreign_ingress": 0.0,
         "voip": 0.0,
         "unverified_identity": 0.0,
-        "hour_sin_utc": -0.9150991469860493,
-        "hour_cos_utc": -0.4032289066837904
+        "hour_sin_utc": -0.9759090024690966,
+        "hour_cos_utc": -0.2181779523686404
       },
       "history_calls": 66,
       "review_threshold": 0.6946663610181804,
       "reason": "Порог проверки не достигнут",
-      "call_id": "query_demo_3",
-      "audit_status": "recorded"
+      "call_id": "query_demo_3"
     }
   },
   {
     "scenario": "fraud_low_volume",
     "result": {
-      "risk_score": 54.19,
-      "model_output": 0.5418589074669709,
+      "risk_score": 53.7,
+      "model_output": 0.53703991910213,
       "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
       "model_version": "synthetic-logistic-dce9d685ae40",
       "baseline_log_odds": -1.0969601086769971,
-      "total_log_odds": 0.1678284502523994,
+      "total_log_odds": 0.14843159698781733,
       "contribution_unit": "log_odds; вклады не являются процентными пунктами",
       "factors": [
         {
@@ -876,12 +869,6 @@
           "log_odds_contribution": 0.07050468514952668
         },
         {
-          "feature": "hour_cos_utc",
-          "description": "Время UTC циклическая компонента cos",
-          "value": -0.4032341384788888,
-          "log_odds_contribution": 0.04075062292948571
-        },
-        {
           "feature": "first_second_ratio_24h",
           "description": "Доля завершений в первую секунду",
           "value": 0.0,
@@ -894,10 +881,16 @@
           "log_odds_contribution": 0.033943357728730764
         },
         {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.2181817064033381,
+          "log_odds_contribution": 0.02212630362494849
+        },
+        {
           "feature": "hour_sin_utc",
           "description": "Время UTC циклическая компонента sin",
-          "value": -0.9150968416321785,
-          "log_odds_contribution": -0.011948230786880587
+          "value": -0.975908163195148,
+          "log_odds_contribution": -0.012720764746925455
         }
       ],
       "status": "scored",
@@ -918,14 +911,13 @@
         "foreign_ingress": 0.0,
         "voip": 0.0,
         "unverified_identity": 1.0,
-        "hour_sin_utc": -0.9150968416321785,
-        "hour_cos_utc": -0.4032341384788888
+        "hour_sin_utc": -0.975908163195148,
+        "hour_cos_utc": -0.2181817064033381
       },
       "history_calls": 14,
       "review_threshold": 0.6946663610181804,
       "reason": "Порог проверки не достигнут",
-      "call_id": "query_demo_4",
-      "audit_status": "recorded"
+      "call_id": "query_demo_4"
     }
   },
   {
@@ -940,19 +932,18 @@
         "kind": "emergency_destination"
       },
       "factors": [],
-      "call_id": "query_demo_4",
-      "audit_status": "upstream_required"
+      "call_id": "query_demo_4"
     }
   },
   {
     "scenario": "number_assessment",
     "result": {
-      "risk_score": 54.19,
-      "model_output": 0.5418589074669709,
+      "risk_score": 53.7,
+      "model_output": 0.53703991910213,
       "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
       "model_version": "synthetic-logistic-dce9d685ae40",
       "baseline_log_odds": -1.0969601086769971,
-      "total_log_odds": 0.1678284502523994,
+      "total_log_odds": 0.14843159698781733,
       "contribution_unit": "log_odds; вклады не являются процентными пунктами",
       "factors": [
         {
@@ -1022,12 +1013,6 @@
           "log_odds_contribution": 0.07050468514952668
         },
         {
-          "feature": "hour_cos_utc",
-          "description": "Время UTC циклическая компонента cos",
-          "value": -0.4032341384788888,
-          "log_odds_contribution": 0.04075062292948571
-        },
-        {
           "feature": "first_second_ratio_24h",
           "description": "Доля завершений в первую секунду",
           "value": 0.0,
@@ -1040,17 +1025,42 @@
           "log_odds_contribution": 0.033943357728730764
         },
         {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.2181817064033381,
+          "log_odds_contribution": 0.02212630362494849
+        },
+        {
           "feature": "hour_sin_utc",
           "description": "Время UTC циклическая компонента sin",
-          "value": -0.9150968416321785,
-          "log_odds_contribution": -0.011948230786880587
+          "value": -0.975908163195148,
+          "log_odds_contribution": -0.012720764746925455
         }
       ],
       "status": "scored",
       "auto_block": false,
       "action": "allow",
+      "review_threshold": 0.6946663610181804,
+      "features": {
+        "calls_1h": 1.0,
+        "unique_callees_1h": 1.0,
+        "regions_1h": 1.0,
+        "short_ratio_24h": 0.36363636363636365,
+        "unanswered_ratio_24h": 0.21428571428571427,
+        "first_second_ratio_24h": 0.0,
+        "mean_duration_24h": 29.627272727272725,
+        "repeat_contact_ratio_24h": 0.4285714285714286,
+        "subscriber_numbers_24h": 1.0,
+        "fanout_pattern": 0.0,
+        "foreign_ingress": 0.0,
+        "voip": 0.0,
+        "unverified_identity": 1.0,
+        "hour_sin_utc": -0.975908163195148,
+        "hour_cos_utc": -0.2181817064033381
+      },
+      "reason": "Оценка поведения номера по доступной истории",
       "number": "test:demo_4_n0",
-      "at": "2026-09-28T16:24:52.676061+00:00",
+      "at": "2026-09-28T17:09:35.458013+00:00",
       "history_calls": 14,
       "context": "Метаданные последнего доступного вызова; это не пожизненный рейтинг владельца номера"
     }
@@ -1065,8 +1075,7 @@
       "reason": "Модель недоступна, вызов пропускается",
       "protection": null,
       "factors": [],
-      "call_id": "query_demo_4",
-      "audit_status": "recorded"
+      "call_id": "query_demo_4"
     }
   }
 ]

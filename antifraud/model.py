@@ -6,15 +6,15 @@ from .features import FEATURE_NAMES, FEATURE_LABELS
 
 
 class RiskModel:
-    """Portable JSON inference; no deserialization of executable pickle files."""
+    """Расчёт по параметрам модели из JSON без загрузки исполняемых объектов pickle."""
     def __init__(self, artifact: dict):
         if artifact["feature_names"] != FEATURE_NAMES:
-            raise ValueError("Model feature schema does not match the application")
+            raise ValueError("Набор признаков модели не совпадает с набором приложения")
         for key in ("mean", "scale", "coef"):
             if len(artifact[key]) != len(FEATURE_NAMES) or not all(math.isfinite(v) for v in artifact[key]):
-                raise ValueError("Invalid model parameters")
+                raise ValueError("Некорректные параметры модели")
         if any(v <= 0 for v in artifact["scale"]) or not math.isfinite(artifact["intercept"]):
-            raise ValueError("Invalid model normalization")
+            raise ValueError("Некорректные параметры нормализации модели")
         self.artifact = artifact
 
     @classmethod
