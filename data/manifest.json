@@ -1,0 +1,24 @@
+{
+  "seed": 42,
+  "synthetic": true,
+  "dialable": false,
+  "calls": 155967,
+  "queries": 1400,
+  "splits": {
+    "train": {
+      "queries": 600,
+      "fraud": 200,
+      "benign": 400
+    },
+    "validation": {
+      "queries": 400,
+      "fraud": 132,
+      "benign": 268
+    },
+    "test": {
+      "queries": 400,
+      "fraud": 132,
+      "benign": 268
+    }
+  }
+}

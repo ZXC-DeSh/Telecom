@@ -1,0 +1,1072 @@
+[
+  {
+    "scenario": "personal",
+    "result": {
+      "risk_score": 4.06,
+      "model_output": 0.040566029325943456,
+      "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
+      "model_version": "synthetic-logistic-dce9d685ae40",
+      "baseline_log_odds": -1.0969601086769971,
+      "total_log_odds": -3.1634124964344577,
+      "contribution_unit": "log_odds; вклады не являются процентными пунктами",
+      "factors": [
+        {
+          "feature": "regions_1h",
+          "description": "Охват регионов за час",
+          "value": 1.0,
+          "log_odds_contribution": -3.3599342193628634
+        },
+        {
+          "feature": "calls_1h",
+          "description": "Количество завершённых вызовов за час",
+          "value": 1.0,
+          "log_odds_contribution": 2.6744283970857903
+        },
+        {
+          "feature": "unanswered_ratio_24h",
+          "description": "Доля неотвеченных вызовов за сутки",
+          "value": 0.0,
+          "log_odds_contribution": -2.37431874841421
+        },
+        {
+          "feature": "unique_callees_1h",
+          "description": "Уникальные адресаты за час",
+          "value": 1.0,
+          "log_odds_contribution": 1.982554511851522
+        },
+        {
+          "feature": "mean_duration_24h",
+          "description": "Средняя длительность отвеченных вызовов",
+          "value": 56.55,
+          "log_odds_contribution": -1.3564454788141402
+        },
+        {
+          "feature": "fanout_pattern",
+          "description": "Согласованный обзвон непересекающихся списков",
+          "value": 0.0,
+          "log_odds_contribution": 0.535548501049966
+        },
+        {
+          "feature": "subscriber_numbers_24h",
+          "description": "Номеров одного абонента в наблюдаемом графе",
+          "value": 1.0,
+          "log_odds_contribution": 0.3996997700068297
+        },
+        {
+          "feature": "unverified_identity",
+          "description": "Источник не подтверждён оператором",
+          "value": 0.0,
+          "log_odds_contribution": -0.3580055700646057
+        },
+        {
+          "feature": "repeat_contact_ratio_24h",
+          "description": "Доля повторных контактов",
+          "value": 0.375,
+          "log_odds_contribution": -0.3180194267424853
+        },
+        {
+          "feature": "short_ratio_24h",
+          "description": "Доля коротких отвеченных вызовов за сутки",
+          "value": 0.125,
+          "log_odds_contribution": 0.18755576949054562
+        },
+        {
+          "feature": "foreign_ingress",
+          "description": "Вход из-за рубежа относительно домашней сети",
+          "value": 0.0,
+          "log_odds_contribution": -0.14308230810225897
+        },
+        {
+          "feature": "voip",
+          "description": "Тип соединения VoIP",
+          "value": 0.0,
+          "log_odds_contribution": 0.07050468514952668
+        },
+        {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.4032341384788888,
+          "log_odds_contribution": 0.04075062292948571
+        },
+        {
+          "feature": "first_second_ratio_24h",
+          "description": "Доля завершений в первую секунду",
+          "value": 0.0,
+          "log_odds_contribution": -0.035740663033682125
+        },
+        {
+          "feature": "hour_sin_utc",
+          "description": "Время UTC циклическая компонента sin",
+          "value": -0.9150968416321785,
+          "log_odds_contribution": -0.011948230786880587
+        }
+      ],
+      "status": "scored",
+      "action": "allow",
+      "auto_block": false,
+      "protection": null,
+      "features": {
+        "calls_1h": 1.0,
+        "unique_callees_1h": 1.0,
+        "regions_1h": 1.0,
+        "short_ratio_24h": 0.125,
+        "unanswered_ratio_24h": 0.0,
+        "first_second_ratio_24h": 0.0,
+        "mean_duration_24h": 56.55,
+        "repeat_contact_ratio_24h": 0.375,
+        "subscriber_numbers_24h": 1.0,
+        "fanout_pattern": 0.0,
+        "foreign_ingress": 0.0,
+        "voip": 0.0,
+        "unverified_identity": 0.0,
+        "hour_sin_utc": -0.9150968416321785,
+        "hour_cos_utc": -0.4032341384788888
+      },
+      "history_calls": 8,
+      "review_threshold": 0.6946663610181804,
+      "reason": "Порог проверки не достигнут",
+      "call_id": "query_demo_0",
+      "audit_status": "recorded"
+    }
+  },
+  {
+    "scenario": "fraud_mass_dial",
+    "result": {
+      "risk_score": 99.64,
+      "model_output": 0.9963738373765334,
+      "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
+      "model_version": "synthetic-logistic-dce9d685ae40",
+      "baseline_log_odds": -1.0969601086769971,
+      "total_log_odds": 5.615947565293371,
+      "contribution_unit": "log_odds; вклады не являются процентными пунктами",
+      "factors": [
+        {
+          "feature": "regions_1h",
+          "description": "Охват регионов за час",
+          "value": 23.0,
+          "log_odds_contribution": 5.26701222988627
+        },
+        {
+          "feature": "unanswered_ratio_24h",
+          "description": "Доля неотвеченных вызовов за сутки",
+          "value": 0.7352941176470589,
+          "log_odds_contribution": 1.6694807355133463
+        },
+        {
+          "feature": "calls_1h",
+          "description": "Количество завершённых вызовов за час",
+          "value": 68.0,
+          "log_odds_contribution": -1.6539270746662436
+        },
+        {
+          "feature": "unverified_identity",
+          "description": "Источник не подтверждён оператором",
+          "value": 1.0,
+          "log_odds_contribution": 1.1233967888234178
+        },
+        {
+          "feature": "unique_callees_1h",
+          "description": "Уникальные адресаты за час",
+          "value": 47.0,
+          "log_odds_contribution": -1.1062687750297655
+        },
+        {
+          "feature": "mean_duration_24h",
+          "description": "Средняя длительность отвеченных вызовов",
+          "value": 12.63888888888889,
+          "log_odds_contribution": 0.5521691016155806
+        },
+        {
+          "feature": "fanout_pattern",
+          "description": "Согласованный обзвон непересекающихся списков",
+          "value": 0.0,
+          "log_odds_contribution": 0.535548501049966
+        },
+        {
+          "feature": "foreign_ingress",
+          "description": "Вход из-за рубежа относительно домашней сети",
+          "value": 1.0,
+          "log_odds_contribution": 0.3474856053912003
+        },
+        {
+          "feature": "repeat_contact_ratio_24h",
+          "description": "Доля повторных контактов",
+          "value": 0.3088235294117647,
+          "log_odds_contribution": 0.10844754500656771
+        },
+        {
+          "feature": "short_ratio_24h",
+          "description": "Доля коротких отвеченных вызовов за сутки",
+          "value": 0.5555555555555556,
+          "log_odds_contribution": -0.08959678294743781
+        },
+        {
+          "feature": "voip",
+          "description": "Тип соединения VoIP",
+          "value": 1.0,
+          "log_odds_contribution": -0.06464806593582799
+        },
+        {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.4032341384788888,
+          "log_odds_contribution": 0.04075062292948571
+        },
+        {
+          "feature": "first_second_ratio_24h",
+          "description": "Доля завершений в первую секунду",
+          "value": 0.0,
+          "log_odds_contribution": -0.035740663033682125
+        },
+        {
+          "feature": "subscriber_numbers_24h",
+          "description": "Номеров одного абонента в наблюдаемом графе",
+          "value": 2.0,
+          "log_odds_contribution": 0.030746136154371568
+        },
+        {
+          "feature": "hour_sin_utc",
+          "description": "Время UTC циклическая компонента sin",
+          "value": -0.9150968416321785,
+          "log_odds_contribution": -0.011948230786880587
+        }
+      ],
+      "status": "scored",
+      "action": "review",
+      "auto_block": false,
+      "protection": null,
+      "features": {
+        "calls_1h": 68.0,
+        "unique_callees_1h": 47.0,
+        "regions_1h": 23.0,
+        "short_ratio_24h": 0.5555555555555556,
+        "unanswered_ratio_24h": 0.7352941176470589,
+        "first_second_ratio_24h": 0.0,
+        "mean_duration_24h": 12.63888888888889,
+        "repeat_contact_ratio_24h": 0.3088235294117647,
+        "subscriber_numbers_24h": 2.0,
+        "fanout_pattern": 0.0,
+        "foreign_ingress": 1.0,
+        "voip": 1.0,
+        "unverified_identity": 1.0,
+        "hour_sin_utc": -0.9150968416321785,
+        "hour_cos_utc": -0.4032341384788888
+      },
+      "history_calls": 68,
+      "review_threshold": 0.6946663610181804,
+      "reason": "Рекомендована проверка оператором",
+      "call_id": "query_demo_1",
+      "audit_status": "recorded"
+    }
+  },
+  {
+    "scenario": "fraud_fanout",
+    "result": {
+      "risk_score": 99.34,
+      "model_output": 0.9934133162994667,
+      "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
+      "model_version": "synthetic-logistic-dce9d685ae40",
+      "baseline_log_odds": -1.0969601086769971,
+      "total_log_odds": 5.016096817592748,
+      "contribution_unit": "log_odds; вклады не являются процентными пунктами",
+      "factors": [
+        {
+          "feature": "regions_1h",
+          "description": "Охват регионов за час",
+          "value": 16.0,
+          "log_odds_contribution": 2.5220747233070004
+        },
+        {
+          "feature": "repeat_contact_ratio_24h",
+          "description": "Доля повторных контактов",
+          "value": 0.06666666666666665,
+          "log_odds_contribution": 1.6690007601475472
+        },
+        {
+          "feature": "unanswered_ratio_24h",
+          "description": "Доля неотвеченных вызовов за сутки",
+          "value": 0.6666666666666666,
+          "log_odds_contribution": 1.2920594503467737
+        },
+        {
+          "feature": "unverified_identity",
+          "description": "Источник не подтверждён оператором",
+          "value": 1.0,
+          "log_odds_contribution": 1.1233967888234178
+        },
+        {
+          "feature": "fanout_pattern",
+          "description": "Согласованный обзвон непересекающихся списков",
+          "value": 0.7440476190476192,
+          "log_odds_contribution": -1.0524853089887218
+        },
+        {
+          "feature": "calls_1h",
+          "description": "Количество завершённых вызовов за час",
+          "value": 30.0,
+          "log_odds_contribution": 0.8009611033423726
+        },
+        {
+          "feature": "mean_duration_24h",
+          "description": "Средняя длительность отвеченных вызовов",
+          "value": 7.92,
+          "log_odds_contribution": 0.7572775561470844
+        },
+        {
+          "feature": "subscriber_numbers_24h",
+          "description": "Номеров одного абонента в наблюдаемом графе",
+          "value": 4.0,
+          "log_odds_contribution": -0.7071611315505447
+        },
+        {
+          "feature": "short_ratio_24h",
+          "description": "Доля коротких отвеченных вызовов за сутки",
+          "value": 0.8,
+          "log_odds_contribution": -0.24694790949287357
+        },
+        {
+          "feature": "unique_callees_1h",
+          "description": "Уникальные адресаты за час",
+          "value": 28.0,
+          "log_odds_contribution": 0.1695495391168532
+        },
+        {
+          "feature": "foreign_ingress",
+          "description": "Вход из-за рубежа относительно домашней сети",
+          "value": 0.0,
+          "log_odds_contribution": -0.14308230810225897
+        },
+        {
+          "feature": "voip",
+          "description": "Тип соединения VoIP",
+          "value": 1.0,
+          "log_odds_contribution": -0.06464806593582799
+        },
+        {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.4032341384788888,
+          "log_odds_contribution": 0.04075062292948571
+        },
+        {
+          "feature": "first_second_ratio_24h",
+          "description": "Доля завершений в первую секунду",
+          "value": 0.0,
+          "log_odds_contribution": -0.035740663033682125
+        },
+        {
+          "feature": "hour_sin_utc",
+          "description": "Время UTC циклическая компонента sin",
+          "value": -0.9150968416321785,
+          "log_odds_contribution": -0.011948230786880587
+        }
+      ],
+      "status": "scored",
+      "action": "review",
+      "auto_block": false,
+      "protection": null,
+      "features": {
+        "calls_1h": 30.0,
+        "unique_callees_1h": 28.0,
+        "regions_1h": 16.0,
+        "short_ratio_24h": 0.8,
+        "unanswered_ratio_24h": 0.6666666666666666,
+        "first_second_ratio_24h": 0.0,
+        "mean_duration_24h": 7.92,
+        "repeat_contact_ratio_24h": 0.06666666666666665,
+        "subscriber_numbers_24h": 4.0,
+        "fanout_pattern": 0.7440476190476192,
+        "foreign_ingress": 0.0,
+        "voip": 1.0,
+        "unverified_identity": 1.0,
+        "hour_sin_utc": -0.9150968416321785,
+        "hour_cos_utc": -0.4032341384788888
+      },
+      "history_calls": 30,
+      "review_threshold": 0.6946663610181804,
+      "reason": "Рекомендована проверка оператором",
+      "call_id": "query_demo_2",
+      "audit_status": "recorded"
+    }
+  },
+  {
+    "scenario": "hospital",
+    "result": {
+      "risk_score": 0.06,
+      "model_output": 0.0005787526639614532,
+      "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
+      "model_version": "synthetic-logistic-dce9d685ae40",
+      "baseline_log_odds": -1.0969601086769971,
+      "total_log_odds": -7.454056429411338,
+      "contribution_unit": "log_odds; вклады не являются процентными пунктами",
+      "factors": [
+        {
+          "feature": "regions_1h",
+          "description": "Охват регионов за час",
+          "value": 5.0,
+          "log_odds_contribution": -1.7913985013175662
+        },
+        {
+          "feature": "calls_1h",
+          "description": "Количество завершённых вызовов за час",
+          "value": 66.0,
+          "log_odds_contribution": -1.5247224337184218
+        },
+        {
+          "feature": "unique_callees_1h",
+          "description": "Уникальные адресаты за час",
+          "value": 47.0,
+          "log_odds_contribution": -1.1062687750297655
+        },
+        {
+          "feature": "fanout_pattern",
+          "description": "Согласованный обзвон непересекающихся списков",
+          "value": 0.678244784708663,
+          "log_odds_contribution": -0.9120411720121215
+        },
+        {
+          "feature": "subscriber_numbers_24h",
+          "description": "Номеров одного абонента в наблюдаемом графе",
+          "value": 4.0,
+          "log_odds_contribution": -0.7071611315505447
+        },
+        {
+          "feature": "unanswered_ratio_24h",
+          "description": "Доля неотвеченных вызовов за сутки",
+          "value": 0.3484848484848485,
+          "log_odds_contribution": -0.45780287178914997
+        },
+        {
+          "feature": "unverified_identity",
+          "description": "Источник не подтверждён оператором",
+          "value": 0.0,
+          "log_odds_contribution": -0.3580055700646057
+        },
+        {
+          "feature": "mean_duration_24h",
+          "description": "Средняя длительность отвеченных вызовов",
+          "value": 17.22558139534884,
+          "log_odds_contribution": 0.3528066174455532
+        },
+        {
+          "feature": "repeat_contact_ratio_24h",
+          "description": "Доля повторных контактов",
+          "value": 0.28787878787878785,
+          "log_odds_contribution": 0.2434236236072784
+        },
+        {
+          "feature": "foreign_ingress",
+          "description": "Вход из-за рубежа относительно домашней сети",
+          "value": 0.0,
+          "log_odds_contribution": -0.14308230810225897
+        },
+        {
+          "feature": "voip",
+          "description": "Тип соединения VoIP",
+          "value": 0.0,
+          "log_odds_contribution": 0.07050468514952668
+        },
+        {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.4032341384788888,
+          "log_odds_contribution": 0.04075062292948571
+        },
+        {
+          "feature": "first_second_ratio_24h",
+          "description": "Доля завершений в первую секунду",
+          "value": 0.0,
+          "log_odds_contribution": -0.035740663033682125
+        },
+        {
+          "feature": "short_ratio_24h",
+          "description": "Доля коротких отвеченных вызовов за сутки",
+          "value": 0.4418604651162791,
+          "log_odds_contribution": -0.01641021246118861
+        },
+        {
+          "feature": "hour_sin_utc",
+          "description": "Время UTC циклическая компонента sin",
+          "value": -0.9150968416321785,
+          "log_odds_contribution": -0.011948230786880587
+        }
+      ],
+      "status": "scored",
+      "action": "allow",
+      "auto_block": false,
+      "protection": null,
+      "features": {
+        "calls_1h": 66.0,
+        "unique_callees_1h": 47.0,
+        "regions_1h": 5.0,
+        "short_ratio_24h": 0.4418604651162791,
+        "unanswered_ratio_24h": 0.3484848484848485,
+        "first_second_ratio_24h": 0.0,
+        "mean_duration_24h": 17.22558139534884,
+        "repeat_contact_ratio_24h": 0.28787878787878785,
+        "subscriber_numbers_24h": 4.0,
+        "fanout_pattern": 0.678244784708663,
+        "foreign_ingress": 0.0,
+        "voip": 0.0,
+        "unverified_identity": 0.0,
+        "hour_sin_utc": -0.9150968416321785,
+        "hour_cos_utc": -0.4032341384788888
+      },
+      "history_calls": 66,
+      "review_threshold": 0.6946663610181804,
+      "reason": "Порог проверки не достигнут",
+      "call_id": "query_demo_3",
+      "audit_status": "recorded"
+    }
+  },
+  {
+    "scenario": "verified_hospital_callback",
+    "result": {
+      "status": "protected",
+      "risk_score": null,
+      "action": "allow",
+      "auto_block": false,
+      "reason": "Подтверждённый обратный звонок общественно важной организации",
+      "protection": {
+        "kind": "verified_social_organization",
+        "organization": "demo_hospital",
+        "registry_id": "89aa9ed9-2de4-46e6-939e-dc3a60a3a76a",
+        "reason": "Подтверждённый обратный звонок общественно важной организации"
+      },
+      "factors": [],
+      "call_id": "query_demo_3",
+      "audit_status": "recorded"
+    }
+  },
+  {
+    "scenario": "spoofed_hospital",
+    "result": {
+      "risk_score": 0.25,
+      "model_output": 0.0025409967417662992,
+      "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
+      "model_version": "synthetic-logistic-dce9d685ae40",
+      "baseline_log_odds": -1.0969601086769971,
+      "total_log_odds": -5.972654626356059,
+      "contribution_unit": "log_odds; вклады не являются процентными пунктами",
+      "factors": [
+        {
+          "feature": "regions_1h",
+          "description": "Охват регионов за час",
+          "value": 5.0,
+          "log_odds_contribution": -1.7913985013175662
+        },
+        {
+          "feature": "calls_1h",
+          "description": "Количество завершённых вызовов за час",
+          "value": 66.0,
+          "log_odds_contribution": -1.5247224337184218
+        },
+        {
+          "feature": "unverified_identity",
+          "description": "Источник не подтверждён оператором",
+          "value": 1.0,
+          "log_odds_contribution": 1.1233967888234178
+        },
+        {
+          "feature": "unique_callees_1h",
+          "description": "Уникальные адресаты за час",
+          "value": 47.0,
+          "log_odds_contribution": -1.1062687750297655
+        },
+        {
+          "feature": "fanout_pattern",
+          "description": "Согласованный обзвон непересекающихся списков",
+          "value": 0.678244784708663,
+          "log_odds_contribution": -0.9120411720121215
+        },
+        {
+          "feature": "subscriber_numbers_24h",
+          "description": "Номеров одного абонента в наблюдаемом графе",
+          "value": 4.0,
+          "log_odds_contribution": -0.7071611315505447
+        },
+        {
+          "feature": "unanswered_ratio_24h",
+          "description": "Доля неотвеченных вызовов за сутки",
+          "value": 0.3484848484848485,
+          "log_odds_contribution": -0.45780287178914997
+        },
+        {
+          "feature": "mean_duration_24h",
+          "description": "Средняя длительность отвеченных вызовов",
+          "value": 17.22558139534884,
+          "log_odds_contribution": 0.3528066174455532
+        },
+        {
+          "feature": "repeat_contact_ratio_24h",
+          "description": "Доля повторных контактов",
+          "value": 0.28787878787878785,
+          "log_odds_contribution": 0.2434236236072784
+        },
+        {
+          "feature": "foreign_ingress",
+          "description": "Вход из-за рубежа относительно домашней сети",
+          "value": 0.0,
+          "log_odds_contribution": -0.14308230810225897
+        },
+        {
+          "feature": "voip",
+          "description": "Тип соединения VoIP",
+          "value": 0.0,
+          "log_odds_contribution": 0.07050468514952668
+        },
+        {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.4032289066837904,
+          "log_odds_contribution": 0.04075009638346113
+        },
+        {
+          "feature": "first_second_ratio_24h",
+          "description": "Доля завершений в первую секунду",
+          "value": 0.0,
+          "log_odds_contribution": -0.035740663033682125
+        },
+        {
+          "feature": "short_ratio_24h",
+          "description": "Доля коротких отвеченных вызовов за сутки",
+          "value": 0.4418604651162791,
+          "log_odds_contribution": -0.01641021246118861
+        },
+        {
+          "feature": "hour_sin_utc",
+          "description": "Время UTC циклическая компонента sin",
+          "value": -0.9150991469860493,
+          "log_odds_contribution": -0.011948260073600711
+        }
+      ],
+      "status": "scored",
+      "action": "allow",
+      "auto_block": false,
+      "protection": null,
+      "features": {
+        "calls_1h": 66.0,
+        "unique_callees_1h": 47.0,
+        "regions_1h": 5.0,
+        "short_ratio_24h": 0.4418604651162791,
+        "unanswered_ratio_24h": 0.3484848484848485,
+        "first_second_ratio_24h": 0.0,
+        "mean_duration_24h": 17.22558139534884,
+        "repeat_contact_ratio_24h": 0.28787878787878785,
+        "subscriber_numbers_24h": 4.0,
+        "fanout_pattern": 0.678244784708663,
+        "foreign_ingress": 0.0,
+        "voip": 0.0,
+        "unverified_identity": 1.0,
+        "hour_sin_utc": -0.9150991469860493,
+        "hour_cos_utc": -0.4032289066837904
+      },
+      "history_calls": 66,
+      "review_threshold": 0.6946663610181804,
+      "reason": "Порог проверки не достигнут",
+      "call_id": "query_demo_3",
+      "audit_status": "recorded"
+    }
+  },
+  {
+    "scenario": "revoked_privilege",
+    "result": {
+      "risk_score": 0.06,
+      "model_output": 0.0005787523424580398,
+      "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
+      "model_version": "synthetic-logistic-dce9d685ae40",
+      "baseline_log_odds": -1.0969601086769971,
+      "total_log_odds": -7.454056985244082,
+      "contribution_unit": "log_odds; вклады не являются процентными пунктами",
+      "factors": [
+        {
+          "feature": "regions_1h",
+          "description": "Охват регионов за час",
+          "value": 5.0,
+          "log_odds_contribution": -1.7913985013175662
+        },
+        {
+          "feature": "calls_1h",
+          "description": "Количество завершённых вызовов за час",
+          "value": 66.0,
+          "log_odds_contribution": -1.5247224337184218
+        },
+        {
+          "feature": "unique_callees_1h",
+          "description": "Уникальные адресаты за час",
+          "value": 47.0,
+          "log_odds_contribution": -1.1062687750297655
+        },
+        {
+          "feature": "fanout_pattern",
+          "description": "Согласованный обзвон непересекающихся списков",
+          "value": 0.678244784708663,
+          "log_odds_contribution": -0.9120411720121215
+        },
+        {
+          "feature": "subscriber_numbers_24h",
+          "description": "Номеров одного абонента в наблюдаемом графе",
+          "value": 4.0,
+          "log_odds_contribution": -0.7071611315505447
+        },
+        {
+          "feature": "unanswered_ratio_24h",
+          "description": "Доля неотвеченных вызовов за сутки",
+          "value": 0.3484848484848485,
+          "log_odds_contribution": -0.45780287178914997
+        },
+        {
+          "feature": "unverified_identity",
+          "description": "Источник не подтверждён оператором",
+          "value": 0.0,
+          "log_odds_contribution": -0.3580055700646057
+        },
+        {
+          "feature": "mean_duration_24h",
+          "description": "Средняя длительность отвеченных вызовов",
+          "value": 17.22558139534884,
+          "log_odds_contribution": 0.3528066174455532
+        },
+        {
+          "feature": "repeat_contact_ratio_24h",
+          "description": "Доля повторных контактов",
+          "value": 0.28787878787878785,
+          "log_odds_contribution": 0.2434236236072784
+        },
+        {
+          "feature": "foreign_ingress",
+          "description": "Вход из-за рубежа относительно домашней сети",
+          "value": 0.0,
+          "log_odds_contribution": -0.14308230810225897
+        },
+        {
+          "feature": "voip",
+          "description": "Тип соединения VoIP",
+          "value": 0.0,
+          "log_odds_contribution": 0.07050468514952668
+        },
+        {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.4032289066837904,
+          "log_odds_contribution": 0.04075009638346113
+        },
+        {
+          "feature": "first_second_ratio_24h",
+          "description": "Доля завершений в первую секунду",
+          "value": 0.0,
+          "log_odds_contribution": -0.035740663033682125
+        },
+        {
+          "feature": "short_ratio_24h",
+          "description": "Доля коротких отвеченных вызовов за сутки",
+          "value": 0.4418604651162791,
+          "log_odds_contribution": -0.01641021246118861
+        },
+        {
+          "feature": "hour_sin_utc",
+          "description": "Время UTC циклическая компонента sin",
+          "value": -0.9150991469860493,
+          "log_odds_contribution": -0.011948260073600711
+        }
+      ],
+      "status": "scored",
+      "action": "allow",
+      "auto_block": false,
+      "protection": null,
+      "features": {
+        "calls_1h": 66.0,
+        "unique_callees_1h": 47.0,
+        "regions_1h": 5.0,
+        "short_ratio_24h": 0.4418604651162791,
+        "unanswered_ratio_24h": 0.3484848484848485,
+        "first_second_ratio_24h": 0.0,
+        "mean_duration_24h": 17.22558139534884,
+        "repeat_contact_ratio_24h": 0.28787878787878785,
+        "subscriber_numbers_24h": 4.0,
+        "fanout_pattern": 0.678244784708663,
+        "foreign_ingress": 0.0,
+        "voip": 0.0,
+        "unverified_identity": 0.0,
+        "hour_sin_utc": -0.9150991469860493,
+        "hour_cos_utc": -0.4032289066837904
+      },
+      "history_calls": 66,
+      "review_threshold": 0.6946663610181804,
+      "reason": "Порог проверки не достигнут",
+      "call_id": "query_demo_3",
+      "audit_status": "recorded"
+    }
+  },
+  {
+    "scenario": "fraud_low_volume",
+    "result": {
+      "risk_score": 54.19,
+      "model_output": 0.5418589074669709,
+      "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
+      "model_version": "synthetic-logistic-dce9d685ae40",
+      "baseline_log_odds": -1.0969601086769971,
+      "total_log_odds": 0.1678284502523994,
+      "contribution_unit": "log_odds; вклады не являются процентными пунктами",
+      "factors": [
+        {
+          "feature": "regions_1h",
+          "description": "Охват регионов за час",
+          "value": 1.0,
+          "log_odds_contribution": -3.3599342193628634
+        },
+        {
+          "feature": "calls_1h",
+          "description": "Количество завершённых вызовов за час",
+          "value": 1.0,
+          "log_odds_contribution": 2.6744283970857903
+        },
+        {
+          "feature": "unique_callees_1h",
+          "description": "Уникальные адресаты за час",
+          "value": 1.0,
+          "log_odds_contribution": 1.982554511851522
+        },
+        {
+          "feature": "unanswered_ratio_24h",
+          "description": "Доля неотвеченных вызовов за сутки",
+          "value": 0.21428571428571427,
+          "log_odds_contribution": -1.195840041669608
+        },
+        {
+          "feature": "unverified_identity",
+          "description": "Источник не подтверждён оператором",
+          "value": 1.0,
+          "log_odds_contribution": 1.1233967888234178
+        },
+        {
+          "feature": "repeat_contact_ratio_24h",
+          "description": "Доля повторных контактов",
+          "value": 0.4285714285714286,
+          "log_odds_contribution": -0.6632545943488618
+        },
+        {
+          "feature": "fanout_pattern",
+          "description": "Согласованный обзвон непересекающихся списков",
+          "value": 0.0,
+          "log_odds_contribution": 0.535548501049966
+        },
+        {
+          "feature": "subscriber_numbers_24h",
+          "description": "Номеров одного абонента в наблюдаемом графе",
+          "value": 1.0,
+          "log_odds_contribution": 0.3996997700068297
+        },
+        {
+          "feature": "mean_duration_24h",
+          "description": "Средняя длительность отвеченных вызовов",
+          "value": 29.627272727272725,
+          "log_odds_contribution": -0.18623801839171733
+        },
+        {
+          "feature": "foreign_ingress",
+          "description": "Вход из-за рубежа относительно домашней сети",
+          "value": 0.0,
+          "log_odds_contribution": -0.14308230810225897
+        },
+        {
+          "feature": "voip",
+          "description": "Тип соединения VoIP",
+          "value": 0.0,
+          "log_odds_contribution": 0.07050468514952668
+        },
+        {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.4032341384788888,
+          "log_odds_contribution": 0.04075062292948571
+        },
+        {
+          "feature": "first_second_ratio_24h",
+          "description": "Доля завершений в первую секунду",
+          "value": 0.0,
+          "log_odds_contribution": -0.035740663033682125
+        },
+        {
+          "feature": "short_ratio_24h",
+          "description": "Доля коротких отвеченных вызовов за сутки",
+          "value": 0.36363636363636365,
+          "log_odds_contribution": 0.033943357728730764
+        },
+        {
+          "feature": "hour_sin_utc",
+          "description": "Время UTC циклическая компонента sin",
+          "value": -0.9150968416321785,
+          "log_odds_contribution": -0.011948230786880587
+        }
+      ],
+      "status": "scored",
+      "action": "allow",
+      "auto_block": false,
+      "protection": null,
+      "features": {
+        "calls_1h": 1.0,
+        "unique_callees_1h": 1.0,
+        "regions_1h": 1.0,
+        "short_ratio_24h": 0.36363636363636365,
+        "unanswered_ratio_24h": 0.21428571428571427,
+        "first_second_ratio_24h": 0.0,
+        "mean_duration_24h": 29.627272727272725,
+        "repeat_contact_ratio_24h": 0.4285714285714286,
+        "subscriber_numbers_24h": 1.0,
+        "fanout_pattern": 0.0,
+        "foreign_ingress": 0.0,
+        "voip": 0.0,
+        "unverified_identity": 1.0,
+        "hour_sin_utc": -0.9150968416321785,
+        "hour_cos_utc": -0.4032341384788888
+      },
+      "history_calls": 14,
+      "review_threshold": 0.6946663610181804,
+      "reason": "Порог проверки не достигнут",
+      "call_id": "query_demo_4",
+      "audit_status": "recorded"
+    }
+  },
+  {
+    "scenario": "emergency_103",
+    "result": {
+      "status": "protected",
+      "risk_score": null,
+      "action": "allow",
+      "auto_block": false,
+      "reason": "Экстренный вызов проходит без ожидания скоринга",
+      "protection": {
+        "kind": "emergency_destination"
+      },
+      "factors": [],
+      "call_id": "query_demo_4",
+      "audit_status": "upstream_required"
+    }
+  },
+  {
+    "scenario": "number_assessment",
+    "result": {
+      "risk_score": 54.19,
+      "model_output": 0.5418589074669709,
+      "score_meaning": "Индекс риска 0–100, не подтверждённая вероятность мошенничества",
+      "model_version": "synthetic-logistic-dce9d685ae40",
+      "baseline_log_odds": -1.0969601086769971,
+      "total_log_odds": 0.1678284502523994,
+      "contribution_unit": "log_odds; вклады не являются процентными пунктами",
+      "factors": [
+        {
+          "feature": "regions_1h",
+          "description": "Охват регионов за час",
+          "value": 1.0,
+          "log_odds_contribution": -3.3599342193628634
+        },
+        {
+          "feature": "calls_1h",
+          "description": "Количество завершённых вызовов за час",
+          "value": 1.0,
+          "log_odds_contribution": 2.6744283970857903
+        },
+        {
+          "feature": "unique_callees_1h",
+          "description": "Уникальные адресаты за час",
+          "value": 1.0,
+          "log_odds_contribution": 1.982554511851522
+        },
+        {
+          "feature": "unanswered_ratio_24h",
+          "description": "Доля неотвеченных вызовов за сутки",
+          "value": 0.21428571428571427,
+          "log_odds_contribution": -1.195840041669608
+        },
+        {
+          "feature": "unverified_identity",
+          "description": "Источник не подтверждён оператором",
+          "value": 1.0,
+          "log_odds_contribution": 1.1233967888234178
+        },
+        {
+          "feature": "repeat_contact_ratio_24h",
+          "description": "Доля повторных контактов",
+          "value": 0.4285714285714286,
+          "log_odds_contribution": -0.6632545943488618
+        },
+        {
+          "feature": "fanout_pattern",
+          "description": "Согласованный обзвон непересекающихся списков",
+          "value": 0.0,
+          "log_odds_contribution": 0.535548501049966
+        },
+        {
+          "feature": "subscriber_numbers_24h",
+          "description": "Номеров одного абонента в наблюдаемом графе",
+          "value": 1.0,
+          "log_odds_contribution": 0.3996997700068297
+        },
+        {
+          "feature": "mean_duration_24h",
+          "description": "Средняя длительность отвеченных вызовов",
+          "value": 29.627272727272725,
+          "log_odds_contribution": -0.18623801839171733
+        },
+        {
+          "feature": "foreign_ingress",
+          "description": "Вход из-за рубежа относительно домашней сети",
+          "value": 0.0,
+          "log_odds_contribution": -0.14308230810225897
+        },
+        {
+          "feature": "voip",
+          "description": "Тип соединения VoIP",
+          "value": 0.0,
+          "log_odds_contribution": 0.07050468514952668
+        },
+        {
+          "feature": "hour_cos_utc",
+          "description": "Время UTC циклическая компонента cos",
+          "value": -0.4032341384788888,
+          "log_odds_contribution": 0.04075062292948571
+        },
+        {
+          "feature": "first_second_ratio_24h",
+          "description": "Доля завершений в первую секунду",
+          "value": 0.0,
+          "log_odds_contribution": -0.035740663033682125
+        },
+        {
+          "feature": "short_ratio_24h",
+          "description": "Доля коротких отвеченных вызовов за сутки",
+          "value": 0.36363636363636365,
+          "log_odds_contribution": 0.033943357728730764
+        },
+        {
+          "feature": "hour_sin_utc",
+          "description": "Время UTC циклическая компонента sin",
+          "value": -0.9150968416321785,
+          "log_odds_contribution": -0.011948230786880587
+        }
+      ],
+      "status": "scored",
+      "auto_block": false,
+      "action": "allow",
+      "number": "test:demo_4_n0",
+      "at": "2026-09-28T16:24:52.676061+00:00",
+      "history_calls": 14,
+      "context": "Метаданные последнего доступного вызова; это не пожизненный рейтинг владельца номера"
+    }
+  },
+  {
+    "scenario": "model_unavailable",
+    "result": {
+      "status": "degraded",
+      "risk_score": null,
+      "action": "allow",
+      "auto_block": false,
+      "reason": "Модель недоступна, вызов пропускается",
+      "protection": null,
+      "factors": [],
+      "call_id": "query_demo_4",
+      "audit_status": "recorded"
+    }
+  }
+]

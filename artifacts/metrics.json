@@ -1,0 +1,114 @@
+{
+  "synthetic_only": true,
+  "warning": "Метрики только на синтетике; качество на закрытых данных не измерено.",
+  "model_version": "synthetic-logistic-dce9d685ae40",
+  "validation_fpr_budget": 0.01,
+  "review_threshold": 0.6946663610181804,
+  "explanation_export_max_error": 1e-10,
+  "splits": {
+    "train": {
+      "n": 600,
+      "tn": 396,
+      "fp": 4,
+      "fn": 14,
+      "tp": 186,
+      "fpr": 0.01,
+      "fpr_wilson_95_upper": 0.025426966994408242,
+      "recall": 0.93,
+      "precision": 0.9789473684210527,
+      "pr_auc": 0.9922858898680793,
+      "roc_auc": 0.995725,
+      "brier": 0.029682099489833018
+    },
+    "validation": {
+      "n": 400,
+      "tn": 266,
+      "fp": 2,
+      "fn": 13,
+      "tp": 119,
+      "fpr": 0.007462686567164179,
+      "fpr_wilson_95_upper": 0.02679732418323446,
+      "recall": 0.9015151515151515,
+      "precision": 0.9834710743801653,
+      "pr_auc": 0.9897457530410765,
+      "roc_auc": 0.9952792853912258,
+      "brier": 0.02839700637843474
+    },
+    "test": {
+      "n": 400,
+      "tn": 264,
+      "fp": 4,
+      "fn": 10,
+      "tp": 122,
+      "fpr": 0.014925373134328358,
+      "fpr_wilson_95_upper": 0.03774166345830528,
+      "recall": 0.9242424242424242,
+      "precision": 0.9682539682539683,
+      "pr_auc": 0.9932879396249727,
+      "roc_auc": 0.9967492085029398,
+      "brier": 0.02505916897802079
+    }
+  },
+  "test_by_scenario": {
+    "busy_small_business": {
+      "n": 33,
+      "review_count": 0,
+      "fraud": 0
+    },
+    "courier": {
+      "n": 34,
+      "review_count": 1,
+      "fraud": 0
+    },
+    "fraud_fanout": {
+      "n": 33,
+      "review_count": 33,
+      "fraud": 1
+    },
+    "fraud_low_volume": {
+      "n": 33,
+      "review_count": 23,
+      "fraud": 1
+    },
+    "fraud_mass_dial": {
+      "n": 33,
+      "review_count": 33,
+      "fraud": 1
+    },
+    "fraud_wangiri": {
+      "n": 33,
+      "review_count": 33,
+      "fraud": 1
+    },
+    "hospital": {
+      "n": 34,
+      "review_count": 0,
+      "fraud": 0
+    },
+    "international_family": {
+      "n": 33,
+      "review_count": 2,
+      "fraud": 0
+    },
+    "legitimate_call_center": {
+      "n": 34,
+      "review_count": 0,
+      "fraud": 0
+    },
+    "legitimate_notification": {
+      "n": 33,
+      "review_count": 1,
+      "fraud": 0
+    },
+    "personal": {
+      "n": 34,
+      "review_count": 0,
+      "fraud": 0
+    },
+    "short_legitimate_calls": {
+      "n": 33,
+      "review_count": 0,
+      "fraud": 0
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "purpose": "Матрица сценариев; исполняемые проверки в tests/test_antifraud.py",
+  "synthetic": true,
+  "cases": [
+    {"case": "emergency_103_high_risk", "given": "Высокорисковый источник звонит на точный код 103", "expected": "protected; allow; no synchronous model or DB access"},
+    {"case": "emergency_112_model_and_db_down", "given": "Модель и БД недоступны, назначение 112", "expected": "protected; allow; score null"},
+    {"case": "operator_emergency_alias", "given": "Доверенный шлюз сообщает destination_service=emergency", "expected": "protected; allow"},
+    {"case": "suffix_103", "given": "Обычный длинный номер заканчивается на 103", "expected": "No emergency privilege by suffix"},
+    {"case": "organization_pending", "given": "Организация подала заявку без подтверждения", "expected": "No privilege"},
+    {"case": "verified_hospital_callback", "given": "Подтверждённый номер, абонент, оператор, транк и действующая привилегия", "expected": "protected; allow"},
+    {"case": "spoofed_hospital_caller_id", "given": "Совпадает Caller ID, источник не подтверждён", "expected": "No privilege; ordinary scoring"},
+    {"case": "wrong_trunk", "given": "Совпадает номер, транк не совпадает", "expected": "No privilege"},
+    {"case": "wrong_subscriber", "given": "Совпадает номер, абонент не совпадает", "expected": "No privilege"},
+    {"case": "expired", "given": "Время вызова равно expires_at", "expected": "No privilege"},
+    {"case": "revoked", "given": "Привилегия отозвана", "expected": "No privilege immediately"},
+    {"case": "ordinary_model_down", "given": "Для обычного вызова модель недоступна", "expected": "degraded; allow; score null"},
+    {"case": "unknown_number", "given": "История номера отсутствует", "expected": "insufficient_data; score null"},
+    {"case": "organization_self_approval", "given": "Организационный ключ подтверждает собственную заявку", "expected": "401; no state change"},
+    {"case": "high_risk_ordinary", "given": "Обычный вызов превышает порог риска", "expected": "review; auto_block false"}
+  ]
+}
