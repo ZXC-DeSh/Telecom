@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import APIRouter, Depends, Request
 
 from app.api.schemas.fraud_alerts import FraudAlert, FraudAlertFilters, FraudAlertList
@@ -10,7 +12,7 @@ router = APIRouter(tags=["fraud-alerts"])
 @router.get("/fraud-alerts", response_model=ApiResponse[FraudAlertList])
 def get_fraud_alerts(
     request: Request,
-    filters: FraudAlertFilters = Depends(),
+    filters: Annotated[FraudAlertFilters, Depends()],
 ) -> ApiResponse[FraudAlertList]:
     page = request.app.state.container.list_fraud_alerts.execute(
         FraudAlertSearchCriteria(

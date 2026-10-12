@@ -1,9 +1,8 @@
 import logging
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator
 
-from fastapi import FastAPI
-from fastapi import Request
+from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -11,11 +10,11 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.api.middleware import RequestContextMiddleware, SecurityHeadersMiddleware
 from app.api.router import build_router
+from app.api.schemas.response import ApiResponse
+from app.application.exceptions import EntityNotFound, FeatureUnavailable
 from app.container import Container
 from app.core.config import Settings, get_settings
 from app.core.logging import configure_logging
-from app.api.schemas.response import ApiResponse
-from app.application.exceptions import EntityNotFound, FeatureUnavailable
 
 logger = logging.getLogger(__name__)
 

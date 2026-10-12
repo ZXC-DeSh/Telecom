@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     db_connect_timeout: int = 3
     cors_origins: str = ""
     api_prefix: str = "/api/v1"
+    model_path: str = "models/FraudScope_r9.2.cbm"
+    model_passport_path: str = "models/FraudScrope_r9.2.json"
 
     model_config = SettingsConfigDict(
         case_sensitive=False,
@@ -25,7 +27,9 @@ class Settings(BaseSettings):
 
     @property
     def allowed_origins(self) -> list[str]:
-        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+        return [
+            origin.strip() for origin in self.cors_origins.split(",") if origin.strip()
+        ]
 
 
 @lru_cache(maxsize=1)

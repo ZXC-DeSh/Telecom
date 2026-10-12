@@ -1,6 +1,6 @@
 from app.domain.entities.fraud_alert import FraudAlertPage
 from app.domain.entities.search import FraudAlertSearchCriteria
-from app.domain.repositories.fraud_alert_repository import FraudAlertRepository
+from app.domain.repositories.fraud_alerts import FraudAlertRepository
 
 
 class ListFraudAlerts:

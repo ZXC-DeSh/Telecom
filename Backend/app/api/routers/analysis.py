@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, BackgroundTasks, Request
 
 from app.api.schemas.analysis import (
     AnalysisJobAccepted,
@@ -20,11 +20,16 @@ router = APIRouter(tags=["analysis"])
 def run_analysis(
     payload: AnalysisRunRequest,
     request: Request,
+    background_tasks: BackgroundTasks,
 ) -> ApiResponse[AnalysisJobAccepted]:
     job = request.app.state.container.run_analysis.execute(
         date_from=payload.date_from,
         date_to=payload.date_to,
         force_recalculate=payload.force_recalculate,
+    )
+    background_tasks.add_task(
+        request.app.state.container.process_analysis.execute,
+        job.job_id,
     )
     return ApiResponse[AnalysisJobAccepted](
         status_code=202,
@@ -41,3 +46,4 @@ def get_analysis_status(job_id: UUID, request: Request) -> ApiResponse[AnalysisJ
         message="Analysis status retrieved",
         data=AnalysisJobStatus.model_validate(job),
     )
+

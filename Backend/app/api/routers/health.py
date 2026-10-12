@@ -13,11 +13,15 @@ def health(request: Request) -> JSONResponse:
     status_code = 200 if dependencies.is_healthy else 503
     database = DependencyHealth(
         status="ok" if dependencies.database_available else "unavailable",
-        message="Database is available" if dependencies.database_available else "Database unavailable",
+        message="Database is available"
+        if dependencies.database_available
+        else "Database unavailable",
     )
     model = DependencyHealth(
         status="ok" if dependencies.model_available else "unavailable",
-        message="Prediction model is available" if dependencies.model_available else "Model unavailable",
+        message="Prediction model is available"
+        if dependencies.model_available
+        else "Model unavailable",
     )
     response = ApiResponse[HealthData](
         status_code=status_code,

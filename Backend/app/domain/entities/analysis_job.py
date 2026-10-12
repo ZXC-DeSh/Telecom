@@ -46,6 +46,7 @@ class AnalysisJob:
     finished_at: datetime | None = None
     metrics: AnalysisMetrics | None = None
     error: str | None = None
+    force_recalculate: bool = False
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "status", AnalysisStatus(self.status))

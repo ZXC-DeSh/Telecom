@@ -3,7 +3,7 @@ from uuid import UUID
 
 from app.application.exceptions import EntityNotFound
 from app.domain.entities.analysis_job import AnalysisJob
-from app.domain.repositories.analysis_job_repository import AnalysisJobRepository
+from app.domain.repositories.analysis_jobs import AnalysisJobRepository
 
 
 class RunAnalysis:

@@ -1,5 +1,5 @@
 from app.domain.entities.dashboard import DashboardSummary
-from app.domain.repositories.dashboard_repository import DashboardRepository
+from app.domain.repositories.dashboard import DashboardRepository
 
 
 class GetDashboardSummary:

@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from pydantic import Field, model_validator
 
 from app.api.schemas.calls import CDRCreate
@@ -6,7 +8,7 @@ from app.api.schemas.prediction_reason import PredictionReason
 
 
 class PredictionRequest(Schema):
-    call_id: int | None = Field(default=None, ge=1, le=9_223_372_036_854_775_807)
+    call_id: UUID | None = None
     call: CDRCreate | None = None
 
     @model_validator(mode="after")
@@ -21,7 +23,7 @@ class BatchPredictionRequest(Schema):
 
 
 class PredictionResult(Schema):
-    call_id: int | None = Field(default=None, ge=1, le=9_223_372_036_854_775_807)
+    call_id: UUID | None = None
     risk_score: float = Field(ge=0, le=1, allow_inf_nan=False)
     risk_level: RiskLevel
     is_fraud: bool
@@ -43,3 +45,4 @@ class BatchPredictionResult(Schema):
         if self.processed != len(self.items):
             raise ValueError("processed must match the number of result items")
         return self
+

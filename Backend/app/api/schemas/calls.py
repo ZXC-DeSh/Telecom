@@ -1,5 +1,6 @@
 from datetime import datetime
 from math import ceil
+from uuid import UUID
 
 from pydantic import Field, field_validator, model_validator
 
@@ -52,15 +53,21 @@ class CDRCreate(Schema):
             try:
                 return datetime.strptime(value, "%Y%m%d%H%M%S")
             except ValueError as exc:
-                raise ValueError("call_time must be a valid yyyyMMddHHmmss timestamp") from exc
+                raise ValueError(
+                    "call_time must be a valid yyyyMMddHHmmss timestamp"
+                ) from exc
         return value
 
     @model_validator(mode="after")
     def validate_forwarding_number(self):
         if self.call_type == CallType.FORWARDED and self.msisdn_c is None:
-            raise ValueError("msisdn_c is required for forwarded calls (call_type='03')")
+            raise ValueError(
+                "msisdn_c is required for forwarded calls (call_type='03')"
+            )
         if self.call_type != CallType.FORWARDED and self.msisdn_c is not None:
-            raise ValueError("msisdn_c is only applicable to forwarded calls (call_type='03')")
+            raise ValueError(
+                "msisdn_c is only applicable to forwarded calls (call_type='03')"
+            )
         return self
 
     @model_validator(mode="after")
@@ -70,7 +77,7 @@ class CDRCreate(Schema):
 
 
 class CallRecord(Schema):
-    id: int = Field(ge=1, le=9_223_372_036_854_775_807)
+    id: UUID
     call_type: CallType
     imsi_a: str | None = Field(default=None, min_length=1, max_length=32)
     msisdn_a: CDRNumber

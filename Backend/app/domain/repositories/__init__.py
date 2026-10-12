@@ -1,1 +1,1 @@
-"""Persistence repositories for application data access."""
+"""Repository contracts owned by the domain layer."""

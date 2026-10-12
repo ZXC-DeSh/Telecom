@@ -1,10 +1,11 @@
 from datetime import datetime
+from uuid import UUID
 
 from pydantic import Field, model_validator
 
 from app.api.schemas.common import (
-    FraudScenario,
     CDRNumber,
+    FraudScenario,
     Recommendation,
     RiskLevel,
     Schema,
@@ -36,7 +37,7 @@ class FraudAlertFilters(Schema):
 
 class FraudAlert(Schema):
     alert_id: int = Field(ge=1)
-    call_id: int = Field(ge=1, le=9_223_372_036_854_775_807)
+    call_id: UUID
     call_time: datetime
     msisdn_a: CDRNumber
     msisdn_b: CDRNumber

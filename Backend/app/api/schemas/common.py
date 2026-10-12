@@ -13,8 +13,8 @@ from app.domain.value_objects import (
 
 __all__ = [
     "AnalysisStatus",
-    "CallType",
     "CDRNumber",
+    "CallType",
     "FraudScenario",
     "PhoneNumber",
     "Recommendation",

@@ -1,10 +1,18 @@
+from collections.abc import Callable
+
 from app.domain.entities.health import ServiceHealth
-from app.domain.repositories.health_repository import DatabaseReadiness
-from app.domain.repositories.model_repository import ModelReadiness
+from app.domain.repositories.health import (
+    DatabaseReadinessRepository,
+    ModelReadinessRepository,
+)
 
 
 class CheckServiceHealth:
-    def __init__(self, database: DatabaseReadiness, model: ModelReadiness):
+    def __init__(
+        self,
+        database: DatabaseReadinessRepository,
+        model: ModelReadinessRepository,
+    ) -> None:
         self._database = database
         self._model = model
 
@@ -15,8 +23,8 @@ class CheckServiceHealth:
         )
 
     @staticmethod
-    def _check(check):
+    def _check(check: Callable[[], bool]) -> bool:
         try:
             return bool(check())
-        except Exception:
+        except Exception:  # noqa: BLE001 - any failed probe means not ready.
             return False

@@ -10,6 +10,7 @@ class CallSearchCriteria:
     page_size: int
     date_from: datetime | None = None
     date_to: datetime | None = None
+    date_to_exclusive: datetime | None = None
     call_type: CallType | None = None
     msisdn: str | None = None
     risk_level: RiskLevel | None = None
@@ -17,6 +18,11 @@ class CallSearchCriteria:
     def __post_init__(self) -> None:
         _validate_pagination(self.page, self.page_size)
         _validate_dates(self.date_from, self.date_to)
+        if self.date_to_exclusive is not None:
+            if self.date_to_exclusive.utcoffset() is not None:
+                raise ValueError("date filters must be timezone-naive")
+            if self.date_from is not None and self.date_to_exclusive <= self.date_from:
+                raise ValueError("date_to_exclusive must be greater than date_from")
         if self.msisdn is not None and not _is_msisdn(self.msisdn):
             raise ValueError("msisdn must contain 10 digits")
 

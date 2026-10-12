@@ -1,6 +1,6 @@
 from app.application.exceptions import EntityNotFound
 from app.domain.entities.subscriber import SubscriberProfile
-from app.domain.repositories.subscriber_repository import SubscriberRepository
+from app.domain.repositories.subscribers import SubscriberRepository
 
 
 class GetSubscriberProfile:

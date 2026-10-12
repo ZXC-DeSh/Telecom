@@ -1,7 +1,7 @@
 from app.domain.entities.call import Call
 from app.domain.entities.page import Page
 from app.domain.entities.search import CallSearchCriteria
-from app.domain.repositories.call_repository import CallRepository
+from app.domain.repositories.calls import CallRepository
 
 
 class ListCalls:

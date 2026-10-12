@@ -1,4 +1,7 @@
-from fastapi import APIRouter, Depends, Path, Request
+from typing import Annotated
+from uuid import UUID
+
+from fastapi import APIRouter, Depends, Request
 
 from app.api.mappers import to_call_detail, to_call_list_item
 from app.api.schemas.calls import CallDetail, CallFilters, CallListData
@@ -11,7 +14,7 @@ router = APIRouter(tags=["calls"])
 @router.get("/calls", response_model=ApiResponse[CallListData])
 def get_calls(
     request: Request,
-    filters: CallFilters = Depends(),
+    filters: Annotated[CallFilters, Depends()],
 ) -> ApiResponse[CallListData]:
     page = request.app.state.container.list_calls.execute(
         CallSearchCriteria(
@@ -40,7 +43,7 @@ def get_calls(
 @router.get("/calls/{call_id}", response_model=ApiResponse[CallDetail])
 def get_call(
     request: Request,
-    call_id: int = Path(ge=1, le=9_223_372_036_854_775_807),
+    call_id: UUID,
 ) -> ApiResponse[CallDetail]:
     call = request.app.state.container.get_call.execute(call_id)
     return ApiResponse[CallDetail](

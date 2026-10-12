@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from math import isfinite
+from uuid import UUID
 
 from app.domain.entities.page import Page
 from app.domain.entities.prediction_reason import PredictionReason
@@ -10,7 +11,7 @@ from app.domain.value_objects import FraudScenario, Recommendation, RiskLevel
 @dataclass(frozen=True, slots=True)
 class FraudAlert:
     alert_id: int
-    call_id: int
+    call_id: UUID
     call_time: datetime
     msisdn_a: str
     msisdn_b: str
@@ -23,10 +24,10 @@ class FraudAlert:
     auto_blocked: bool = False
 
     def __post_init__(self) -> None:
-        if type(self.alert_id) is not int or type(self.call_id) is not int:
-            raise ValueError("alert and call ids must be integers")
-        if self.alert_id < 1 or self.call_id < 1:
-            raise ValueError("alert and call ids must be positive")
+        if type(self.alert_id) is not int or self.alert_id < 1:
+            raise ValueError("alert_id must be a positive integer")
+        if not isinstance(self.call_id, UUID):
+            raise TypeError("call_id must be a UUID")
         if not 0 <= self.risk_score <= 1 or not isfinite(self.risk_score):
             raise ValueError("risk_score must be finite and between 0 and 1")
         if self.duration_seconds < 0 or not isfinite(self.duration_seconds):

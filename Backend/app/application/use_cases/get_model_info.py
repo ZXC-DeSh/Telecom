@@ -1,5 +1,5 @@
 from app.domain.entities.model_info import ModelInfo
-from app.domain.repositories.model_repository import ModelInfoRepository
+from app.domain.repositories.models import ModelInfoRepository
 
 
 class GetModelInfo:

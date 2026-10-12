@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 
-from .routers.health import router as health_router
 from .routers.analysis import router as analysis_router
 from .routers.calls import router as calls_router
 from .routers.dashboard import router as dashboard_router
 from .routers.fraud_alerts import router as fraud_alerts_router
+from .routers.health import router as health_router
 from .routers.model import router as model_router
 from .routers.predictions import router as predictions_router
 from .routers.subscribers import router as subscribers_router
