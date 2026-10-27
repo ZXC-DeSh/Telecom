@@ -7,8 +7,8 @@ class GetSubscriberProfile:
     def __init__(self, subscribers: SubscriberRepository):
         self._subscribers = subscribers
 
-    def execute(self, msisdn: str) -> SubscriberProfile:
-        profile = self._subscribers.get_profile(msisdn)
+    def execute(self, msisdn_a: str) -> SubscriberProfile:
+        profile = self._subscribers.get_profile(msisdn_a)
         if profile is None:
-            raise EntityNotFound(f"Subscriber {msisdn} was not found")
+            raise EntityNotFound(f"Абонент {msisdn_a} не найден")
         return profile

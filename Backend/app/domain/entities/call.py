@@ -22,48 +22,63 @@ class Call:
 
     def __post_init__(self) -> None:
         if self.id is not None and not isinstance(self.id, UUID):
-            raise ValueError("id must be a UUID")
+            raise ValueError("id должен быть UUID")
         object.__setattr__(self, "call_type", CallType(self.call_type))
         if not isinstance(self.msisdn_a, str) or not self.msisdn_a:
-            raise ValueError("caller and recipient numbers are required")
+            raise ValueError(
+                f"необходимо указать номера вызывающего и принимающего абонентов (call_id={self.id})"
+            )
         if not isinstance(self.msisdn_b, str) or not self.msisdn_b:
-            raise ValueError("caller and recipient numbers are required")
+            raise ValueError(
+                f"необходимо указать номера вызывающего и принимающего абонентов (call_id={self.id})"
+            )
         if len(self.msisdn_a) > 20 or len(self.msisdn_b) > 20:
-            raise ValueError("phone numbers cannot exceed 20 characters")
+            raise ValueError("длина телефонных номеров не должна превышать 20 символов")
         if not re.fullmatch(r"[0-9]{10}", self.msisdn_a) or not re.fullmatch(
             r"[0-9]{10}", self.msisdn_b
         ):
-            raise ValueError("caller and recipient numbers must contain 10 digits")
+            raise ValueError(
+                "номера вызывающего и принимающего абонентов должны содержать 10 цифр "
+                f"(call_id={self.id})"
+            )
         if self.msisdn_c is not None and not isinstance(self.msisdn_c, str):
-            raise ValueError("forwarding number must be a string")
+            raise ValueError("номер переадресации должен быть строкой")
         if self.msisdn_c is not None and len(self.msisdn_c) > 20:
-            raise ValueError("forwarding number cannot exceed 20 characters")
+            raise ValueError(
+                "длина номера переадресации не должна превышать 20 символов"
+            )
         if self.msisdn_c is not None and not re.fullmatch(r"[0-9]{10}", self.msisdn_c):
-            raise ValueError("forwarding number must contain 10 digits")
+            raise ValueError("номер переадресации должен содержать 10 цифр")
         if self.imsi_a is not None and (
             not isinstance(self.imsi_a, str) or not 1 <= len(self.imsi_a) <= 32
         ):
-            raise ValueError("imsi_a must contain 1 to 32 characters")
+            raise ValueError("imsi_a должен содержать от 1 до 32 символов")
         if self.call_type != CallType.FORWARDED and self.msisdn_c is not None:
-            raise ValueError("forwarding number is only valid for forwarded calls")
+            raise ValueError(
+                "номер переадресации допустим только для переадресованных вызовов"
+            )
         if self.call_type == CallType.FORWARDED and self.msisdn_c is None:
-            raise ValueError("forwarding number is required for forwarded calls")
+            raise ValueError(
+                "для переадресованного вызова требуется номер переадресации"
+            )
         if self.assessment is not None and not isinstance(self.assessment, Prediction):
-            raise ValueError("assessment must be a Prediction")
+            raise ValueError("оценка должна быть объектом Prediction")
         if (
             self.assessment is not None
             and self.id is not None
             and self.assessment.call_id not in (None, self.id)
         ):
-            raise ValueError("assessment call_id must match call id")
+            raise ValueError("call_id оценки должен совпадать с id вызова")
         if (
             isinstance(self.duration_seconds, bool)
             or not isinstance(self.duration_seconds, (int, float))
             or not isfinite(self.duration_seconds)
             or self.duration_seconds < 0
         ):
-            raise ValueError("duration_seconds must be finite and non-negative")
+            raise ValueError(
+                "duration_seconds должен быть конечным неотрицательным числом"
+            )
         if not isinstance(self.call_time, datetime):
-            raise TypeError("call_time must be a datetime")
+            raise TypeError("call_time должен иметь тип datetime")
         if self.call_time.utcoffset() is not None:
-            raise ValueError("call_time must not include a timezone")
+            raise ValueError("call_time не должен содержать часовой пояс")

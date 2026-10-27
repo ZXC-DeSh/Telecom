@@ -10,7 +10,7 @@ class ServiceHealth:
         if not isinstance(self.database_available, bool) or not isinstance(
             self.model_available, bool
         ):
-            raise TypeError("health dependency states must be booleans")
+            raise TypeError("состояния компонентов должны быть логическими значениями")
 
     @property
     def is_healthy(self) -> bool:

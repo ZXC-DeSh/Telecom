@@ -29,7 +29,7 @@ def get_calls(
     )
     return ApiResponse[CallListData](
         status_code=200,
-        message="Calls retrieved",
+        message="Список вызовов получен",
         data=CallListData(
             items=[to_call_list_item(call) for call in page.items],
             page=page.page,
@@ -48,6 +48,6 @@ def get_call(
     call = request.app.state.container.get_call.execute(call_id)
     return ApiResponse[CallDetail](
         status_code=200,
-        message="Call retrieved",
+        message="Данные вызова получены",
         data=to_call_detail(call),
     )

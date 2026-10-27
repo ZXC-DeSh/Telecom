@@ -50,11 +50,11 @@ class AnalysisMetrics(Schema):
             + self.critical_risk_calls
         )
         if self.processed_calls > self.total_calls:
-            raise ValueError("processed_calls cannot exceed total_calls")
+            raise ValueError("processed_calls не может превышать total_calls")
         if self.fraud_calls > self.processed_calls:
-            raise ValueError("fraud_calls cannot exceed processed_calls")
+            raise ValueError("fraud_calls не может превышать processed_calls")
         if risk_count != self.processed_calls:
-            raise ValueError("risk counts must sum to processed_calls")
+            raise ValueError("сумма уровней риска должна совпадать с processed_calls")
         return self
 
 
@@ -69,3 +69,10 @@ class AnalysisJobStatus(Schema):
     finished_at: datetime | None = None
     metrics: AnalysisMetrics | None = None
     error: str | None = None
+
+
+class CurrentAnalysis(Schema):
+    active_job: AnalysisJobStatus | None = None
+    queued_jobs: list[AnalysisJobStatus] | None = None
+    last_failed_job: AnalysisJobStatus | None = None
+    last_successful_job: AnalysisJobStatus | None = None

@@ -14,7 +14,7 @@ class PredictionRequest(Schema):
     @model_validator(mode="after")
     def require_call_source(self):
         if (self.call_id is None) == (self.call is None):
-            raise ValueError("Provide exactly one of call_id or call")
+            raise ValueError("укажите ровно одно из полей call_id или call")
         return self
 
 
@@ -30,6 +30,7 @@ class PredictionResult(Schema):
     fraud_scenario: FraudScenario | None = None
     reasons: list[PredictionReason] = Field(default_factory=list)
     recommendation: Recommendation
+    operator_message: str = Field(min_length=1)
     auto_blocked: bool = False
 
 
@@ -41,8 +42,7 @@ class BatchPredictionResult(Schema):
     @model_validator(mode="after")
     def validate_batch_counts(self):
         if self.processed > self.total:
-            raise ValueError("processed cannot exceed total")
+            raise ValueError("processed не может превышать total")
         if self.processed != len(self.items):
-            raise ValueError("processed must match the number of result items")
+            raise ValueError("processed должен совпадать с числом элементов результата")
         return self
-

@@ -20,11 +20,11 @@ class CallSearchCriteria:
         _validate_dates(self.date_from, self.date_to)
         if self.date_to_exclusive is not None:
             if self.date_to_exclusive.utcoffset() is not None:
-                raise ValueError("date filters must be timezone-naive")
+                raise ValueError("даты фильтра не должны содержать часовой пояс")
             if self.date_from is not None and self.date_to_exclusive <= self.date_from:
-                raise ValueError("date_to_exclusive must be greater than date_from")
+                raise ValueError("date_to_exclusive должен быть позже date_from")
         if self.msisdn is not None and not _is_msisdn(self.msisdn):
-            raise ValueError("msisdn must contain 10 digits")
+            raise ValueError("msisdn должен содержать 10 цифр")
 
 
 @dataclass(frozen=True, slots=True)
@@ -41,20 +41,20 @@ class FraudAlertSearchCriteria:
         _validate_pagination(self.page, self.page_size)
         _validate_dates(self.date_from, self.date_to)
         if self.msisdn is not None and not _is_msisdn(self.msisdn):
-            raise ValueError("msisdn must contain 10 digits")
+            raise ValueError("msisdn должен содержать 10 цифр")
 
 
 def _validate_pagination(page: int, page_size: int) -> None:
     if page < 1 or not 1 <= page_size <= 100:
-        raise ValueError("invalid pagination values")
+        raise ValueError("недопустимые параметры пагинации")
 
 
 def _validate_dates(date_from: datetime | None, date_to: datetime | None) -> None:
     for value in (date_from, date_to):
         if value is not None and value.utcoffset() is not None:
-            raise ValueError("date filters must be timezone-naive")
+            raise ValueError("даты фильтра не должны содержать часовой пояс")
     if date_from is not None and date_to is not None and date_to < date_from:
-        raise ValueError("date_to must be greater than or equal to date_from")
+        raise ValueError("date_to должен быть не раньше date_from")
 
 
 def _is_msisdn(value: str) -> bool:

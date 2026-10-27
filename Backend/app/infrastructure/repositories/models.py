@@ -9,12 +9,12 @@ from app.domain.repositories.models import (
     ModelInfoRepository,
 )
 from app.infrastructure.ml.catboost_predictor import CatBoostPredictor
-from app.infrastructure.services.call_risk_assessment_service import (
-    PostgresCallRiskAssessmentService,
+from app.infrastructure.services.call_risk_assessments import (
+    CallRiskAssessmentService,
 )
 
 
-class CatBoostRepository(FraudModel, ModelInfoRepository):
+class CatBoostModelAdapter(FraudModel, ModelInfoRepository):
     def __init__(self, service: CatBoostPredictor) -> None:
         self._service = service
 
@@ -25,10 +25,9 @@ class CatBoostRepository(FraudModel, ModelInfoRepository):
         return self._service.get_info()
 
 
-class PostgresCallRiskAssessmentRepository(CallRiskAssessmentRepository):
-    def __init__(self, service: PostgresCallRiskAssessmentService) -> None:
+class CallRiskAssessmentRepositoryAdapter(CallRiskAssessmentRepository):
+    def __init__(self, service: CallRiskAssessmentService) -> None:
         self._service = service
 
     def save(self, call_id: UUID, prediction: Prediction, model: ModelInfo) -> None:
         self._service.save(call_id, prediction, model)
-

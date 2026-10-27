@@ -9,8 +9,6 @@ from app.domain.repositories.models import CallRiskAssessmentRepository, FraudMo
 
 
 class PredictFraud:
-    """Application use case; prediction requires a configured model adapter."""
-
     def __init__(
         self,
         predictor: FraudModel,
@@ -25,13 +23,13 @@ class PredictFraud:
         self, call_id: UUID | None = None, call: Call | None = None
     ) -> Prediction:
         if (call_id is None) == (call is None):
-            raise ValueError("provide exactly one of call_id or call")
+            raise ValueError("укажите ровно одно из полей call_id или call")
         if call_id is not None:
             call = self._calls.get_by_id(call_id)
             if call is None:
-                raise EntityNotFound(f"Call {call_id} was not found")
+                raise EntityNotFound(f"Вызов с идентификатором {call_id} не найден")
         if call is None:
-            raise EntityNotFound(f"Call {call_id} was not found")
+            raise EntityNotFound(f"Вызов с идентификатором {call_id} не найден")
 
         prediction = self._predictor.predict(call)
         if call.id is None:
@@ -44,7 +42,7 @@ class PredictFraud:
 
     def execute_batch(self, calls: tuple[Call, ...]) -> tuple[Prediction, ...]:
         if not calls:
-            raise ValueError("at least one call is required")
+            raise ValueError("необходимо указать хотя бы один вызов")
         if len(calls) > 1000:
-            raise ValueError("no more than 1000 calls may be scored at once")
+            raise ValueError("за один раз можно оценить не более 1000 вызовов")
         return tuple(self._predictor.predict(call) for call in calls)

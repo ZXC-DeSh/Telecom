@@ -1,5 +1,5 @@
+from collections.abc import Mapping
 from datetime import timedelta
-from typing import Mapping
 
 from app.domain.entities.call import Call
 from app.domain.value_objects import CallType
@@ -19,13 +19,9 @@ FeatureValue = str | int | float | bool
 
 
 def build_features(call: Call, history: tuple[Call, ...]) -> dict[str, FeatureValue]:
-    """Build the model's named feature vector from strictly prior CDRs."""
     a_history = tuple(item for item in history if item.msisdn_a == call.msisdn_a)
     b_history = tuple(item for item in history if item.msisdn_a == call.msisdn_b)
     features: dict[str, FeatureValue] = {
-        # The r9.2 CatBoost artifact stores call_type as a numeric feature.
-        # Domain codes are zero-padded strings ("01".."03"), so convert
-        # them to the numeric values used during training.
         "call_type": int(call.call_type.value),
         "duration_seconds": float(call.duration_seconds),
         "hour": call.call_time.hour,
@@ -199,5 +195,5 @@ def validate_feature_contract(
 ) -> list[FeatureValue]:
     missing = set(expected_names).difference(features)
     if missing:
-        raise ValueError(f"missing model features: {', '.join(sorted(missing))}")
+        raise ValueError(f"отсутствуют признаки модели: {', '.join(sorted(missing))}")
     return [features[name] for name in expected_names]

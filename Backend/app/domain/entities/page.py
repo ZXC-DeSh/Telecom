@@ -21,11 +21,11 @@ class Page(Generic[T]):
             or not 1 <= self.page_size <= 100
             or self.total < 0
         ):
-            raise ValueError("invalid pagination values")
+            raise ValueError("недопустимые параметры пагинации")
         if len(self.items) > self.page_size:
-            raise ValueError("page items cannot exceed page_size")
+            raise ValueError("число элементов страницы не может превышать page_size")
         if len(self.items) > self.total:
-            raise ValueError("page items cannot exceed total")
+            raise ValueError("число элементов страницы не может превышать total")
 
     @property
     def pages(self) -> int:

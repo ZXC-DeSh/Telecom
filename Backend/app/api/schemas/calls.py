@@ -54,7 +54,7 @@ class CDRCreate(Schema):
                 return datetime.strptime(value, "%Y%m%d%H%M%S")
             except ValueError as exc:
                 raise ValueError(
-                    "call_time must be a valid yyyyMMddHHmmss timestamp"
+                    "call_time должен быть корректной временной меткой в формате yyyyMMddHHmmss"
                 ) from exc
         return value
 
@@ -62,11 +62,11 @@ class CDRCreate(Schema):
     def validate_forwarding_number(self):
         if self.call_type == CallType.FORWARDED and self.msisdn_c is None:
             raise ValueError(
-                "msisdn_c is required for forwarded calls (call_type='03')"
+                "для переадресованного вызова (call_type='03') требуется msisdn_c"
             )
         if self.call_type != CallType.FORWARDED and self.msisdn_c is not None:
             raise ValueError(
-                "msisdn_c is only applicable to forwarded calls (call_type='03')"
+                "msisdn_c допустим только для переадресованного вызова (call_type='03')"
             )
         return self
 
@@ -105,6 +105,7 @@ class CallDetail(CallListItem):
     operator_c: str | None = None
     reasons: list[PredictionReason] = Field(default_factory=list)
     recommendation: Recommendation | None = None
+    operator_message: str | None = None
 
 
 class CallListData(Schema):
@@ -118,5 +119,5 @@ class CallListData(Schema):
     def validate_page_count(self):
         expected_pages = ceil(self.total / self.page_size) if self.total else 0
         if self.pages != expected_pages:
-            raise ValueError("pages must match total and page_size")
+            raise ValueError("число страниц должно соответствовать total и page_size")
         return self

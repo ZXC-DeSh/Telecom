@@ -35,13 +35,17 @@ def predict(
 ) -> ApiResponse[PredictionResult | BatchPredictionResult]:
     use_case = request.app.state.container.predict_fraud
     if isinstance(payload, BatchPredictionRequest):
-        predictions = use_case.execute_batch(tuple(_to_call(call) for call in payload.calls))
+        predictions = use_case.execute_batch(
+            tuple(_to_call(call) for call in payload.calls)
+        )
         result = BatchPredictionResult(
             items=[PredictionResult.model_validate(item) for item in predictions],
             total=len(predictions),
             processed=len(predictions),
         )
-        return ApiResponse(status_code=200, message="Batch prediction completed", data=result)
+        return ApiResponse(
+            status_code=200, message="Пакетный прогноз выполнен", data=result
+        )
 
     prediction = use_case.execute(
         call_id=payload.call_id,
@@ -49,6 +53,6 @@ def predict(
     )
     return ApiResponse(
         status_code=200,
-        message="Prediction completed",
+        message="Прогноз выполнен",
         data=PredictionResult.model_validate(prediction),
     )

@@ -27,3 +27,7 @@ class DashboardSummary(Schema):
     suspicious_subscribers: int = Field(ge=0)
     risk_distribution: RiskDistribution
     timeline: list[TimelinePoint] = Field(default_factory=list)
+
+
+class DashboardRefreshStatus(Schema):
+    status: str

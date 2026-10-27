@@ -11,6 +11,6 @@ def get_model_info(request: Request) -> ApiResponse[ModelInfo]:
     model = request.app.state.container.get_model_info.execute()
     return ApiResponse[ModelInfo](
         status_code=200,
-        message="Model information retrieved",
+        message="Информация о модели получена",
         data=ModelInfo.model_validate(model),
     )

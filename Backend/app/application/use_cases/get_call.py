@@ -12,6 +12,5 @@ class GetCall:
     def execute(self, call_id: UUID) -> Call:
         call = self._calls.get_by_id(call_id)
         if call is None:
-            raise EntityNotFound(f"Call {call_id} was not found")
+            raise EntityNotFound(f"Вызов с идентификатором {call_id} не найден")
         return call
-

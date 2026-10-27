@@ -20,7 +20,7 @@ class ModelMetrics:
             self.false_positive_rate,
         ):
             if metric is not None and (not isfinite(metric) or not 0 <= metric <= 1):
-                raise ValueError("model metrics must be between 0 and 1")
+                raise ValueError("метрики модели должны быть от 0 до 1")
 
 
 @dataclass(frozen=True, slots=True)
@@ -35,4 +35,4 @@ class ModelInfo:
 
     def __post_init__(self) -> None:
         if not self.name or not self.version or not self.algorithm:
-            raise ValueError("model name, version and algorithm are required")
+            raise ValueError("необходимо указать имя, версию и алгоритм модели")

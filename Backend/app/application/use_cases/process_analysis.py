@@ -8,23 +8,24 @@ from app.domain.entities.prediction import Prediction
 from app.domain.entities.search import CallSearchCriteria
 from app.domain.repositories.analysis_jobs import AnalysisJobRepository
 from app.domain.repositories.calls import CallRepository
+from app.domain.repositories.dashboard import DashboardRepository
 from app.domain.value_objects import AnalysisStatus, RiskLevel
 
 logger = logging.getLogger(__name__)
 
 
 class ProcessAnalysis:
-    """Scores calls for an accepted analysis job and persists their assessments."""
-
     def __init__(
         self,
         jobs: AnalysisJobRepository,
         calls: CallRepository,
         predictor: PredictFraud,
+        dashboard: DashboardRepository | None = None,
     ) -> None:
         self._jobs = jobs
         self._calls = calls
         self._predictor = predictor
+        self._dashboard = dashboard
 
     def execute(self, job_id: UUID) -> None:
         job = self._jobs.get_by_id(job_id)
@@ -54,7 +55,7 @@ class ProcessAnalysis:
                 date_from=date_from,
                 date_to_exclusive=date_to_exclusive,
             )
-            first_page = self._calls.list(criteria)
+            first_page = self._calls.list_for_analysis(criteria)
             total_calls = first_page.total
             metrics = _empty_metrics(total_calls=total_calls)
             page_count = first_page.pages
@@ -63,7 +64,7 @@ class ProcessAnalysis:
                 page = (
                     first_page
                     if page_number == 1
-                    else self._calls.list(
+                    else self._calls.list_for_analysis(
                         CallSearchCriteria(
                             page=page_number,
                             page_size=100,
@@ -82,6 +83,14 @@ class ProcessAnalysis:
                 self._jobs.update_progress(job_id, progress, metrics)
 
             self._jobs.complete(job_id, metrics)
+            if self._dashboard is not None:
+                try:
+                    self._dashboard.refresh_summary_cache()
+                except Exception:
+                    logger.exception(
+                        "dashboard summary cache refresh failed after analysis job %s",
+                        job_id,
+                    )
         except Exception as exc:
             logger.exception("analysis job %s failed", job_id)
             self._jobs.fail(

@@ -18,11 +18,20 @@ class SubscriberStatistics(Schema):
 
     @model_validator(mode="after")
     def validate_counts(self):
-        direction_count = self.incoming_calls + self.outgoing_calls + self.forwarded_calls
+        direction_count = (
+            self.incoming_calls + self.outgoing_calls + self.forwarded_calls
+        )
         if direction_count != self.total_calls:
-            raise ValueError("call direction counts must sum to total_calls")
-        if self.short_calls > self.total_calls or self.unanswered_calls > self.total_calls:
-            raise ValueError("call subsets cannot exceed total_calls")
+            raise ValueError(
+                "сумма входящих, исходящих и переадресованных вызовов должна совпадать с total_calls"
+            )
+        if (
+            self.short_calls > self.total_calls
+            or self.unanswered_calls > self.total_calls
+        ):
+            raise ValueError(
+                "число вызовов в подгруппах не может превышать total_calls"
+            )
         return self
 
 

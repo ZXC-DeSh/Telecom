@@ -4,11 +4,11 @@ from app.domain.entities.call import Call
 from app.domain.entities.page import Page
 from app.domain.entities.search import CallSearchCriteria
 from app.domain.repositories.calls import CallRepository
-from app.infrastructure.services.call_service import PostgresCallService
+from app.infrastructure.services.calls import CallService
 
 
-class PostgresCallRepository(CallRepository):
-    def __init__(self, service: PostgresCallService) -> None:
+class CallRepositoryAdapter(CallRepository):
+    def __init__(self, service: CallService) -> None:
         self._service = service
 
     def get_by_id(self, call_id: UUID) -> Call | None:
@@ -17,6 +17,8 @@ class PostgresCallRepository(CallRepository):
     def list(self, criteria: CallSearchCriteria) -> Page[Call]:
         return self._service.list(criteria)
 
+    def list_for_analysis(self, criteria: CallSearchCriteria) -> Page[Call]:
+        return self._service.list_for_analysis(criteria)
+
     def history_before(self, call: Call) -> tuple[Call, ...]:
         return self._service.history_before(call)
-

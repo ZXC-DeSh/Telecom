@@ -38,16 +38,18 @@ CDRNumber = Annotated[str, StringConstraints(pattern=r"^[0-9]{10}$")]
 
 def validate_naive_datetime(value: datetime) -> None:
     if value.utcoffset() is not None:
-        raise ValueError("datetime must not include a timezone")
+        raise ValueError("datetime не должен содержать часовой пояс")
 
 
 def validate_date_range(date_from: datetime, date_to: datetime) -> None:
     start_is_aware = date_from.utcoffset() is not None
     end_is_aware = date_to.utcoffset() is not None
     if start_is_aware != end_is_aware:
-        raise ValueError("date_from and date_to must both be timezone-aware or naive")
+        raise ValueError(
+            "date_from и date_to должны оба содержать часовой пояс либо оба быть без него"
+        )
     if date_to < date_from:
-        raise ValueError("date_to must be greater than or equal to date_from")
+        raise ValueError("date_to должен быть не раньше date_from")
 
 
 class PaginatedResponse(Schema):

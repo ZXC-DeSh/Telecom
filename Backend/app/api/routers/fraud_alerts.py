@@ -27,7 +27,7 @@ def get_fraud_alerts(
     )
     return ApiResponse[FraudAlertList](
         status_code=200,
-        message="Fraud alerts retrieved",
+        message="Список уведомлений о мошенничестве получен",
         data=FraudAlertList(
             items=[FraudAlert.model_validate(alert) for alert in page.items],
             page=page.page,

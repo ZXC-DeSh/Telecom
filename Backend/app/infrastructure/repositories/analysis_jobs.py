@@ -3,11 +3,11 @@ from uuid import UUID
 
 from app.domain.entities.analysis_job import AnalysisJob, AnalysisMetrics
 from app.domain.repositories.analysis_jobs import AnalysisJobRepository
-from app.infrastructure.services.analysis_job_service import PostgresAnalysisJobService
+from app.infrastructure.services.analysis_jobs import AnalysisJobService
 
 
-class PostgresAnalysisJobRepository(AnalysisJobRepository):
-    def __init__(self, service: PostgresAnalysisJobService) -> None:
+class AnalysisJobRepositoryAdapter(AnalysisJobRepository):
+    def __init__(self, service: AnalysisJobService) -> None:
         self._service = service
 
     def create(
@@ -17,6 +17,12 @@ class PostgresAnalysisJobRepository(AnalysisJobRepository):
 
     def get_by_id(self, job_id: UUID) -> AnalysisJob | None:
         return self._service.get_by_id(job_id)
+
+    def get_current(self) -> tuple[tuple[AnalysisJob, ...], AnalysisJob | None]:
+        return self._service.get_current()
+
+    def fail_unfinished(self, error: str) -> None:
+        self._service.fail_unfinished(error)
 
     def mark_running(self, job_id: UUID) -> None:
         self._service.mark_running(job_id)

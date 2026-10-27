@@ -47,6 +47,7 @@ class FraudAlert(Schema):
     fraud_scenario: FraudScenario | None = None
     reasons: list[PredictionReason] = Field(default_factory=list)
     recommendation: Recommendation
+    operator_message: str = Field(min_length=1)
     auto_blocked: bool = False
 
     @model_validator(mode="after")
@@ -66,5 +67,5 @@ class FraudAlertList(Schema):
     def validate_page_count(self):
         expected_pages = (self.total + self.page_size - 1) // self.page_size
         if self.pages != expected_pages:
-            raise ValueError("pages must match total and page_size")
+            raise ValueError("число страниц должно соответствовать total и page_size")
         return self

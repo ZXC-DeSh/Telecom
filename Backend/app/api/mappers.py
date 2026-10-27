@@ -35,5 +35,6 @@ def to_call_detail(call: Call) -> CallDetail:
             **item.model_dump(),
             "reasons": assessment.reasons if assessment else (),
             "recommendation": assessment.recommendation if assessment else None,
+            "operator_message": assessment.operator_message if assessment else None,
         }
     )

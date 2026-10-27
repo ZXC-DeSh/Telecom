@@ -1,8 +1,8 @@
-from app.domain.exceptions import FeatureUnavailable
+from app.domain.exceptions import AnalysisAlreadyRunning, FeatureUnavailable
 
 
 class EntityNotFound(LookupError):
     pass
 
 
-__all__ = ["EntityNotFound", "FeatureUnavailable"]
+__all__ = ["AnalysisAlreadyRunning", "EntityNotFound", "FeatureUnavailable"]

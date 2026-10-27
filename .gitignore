@@ -1,0 +1,9 @@
+.venv/
+.vs_code/*
+__pycache__/
+.ruff_cache/
+.DS_Store
+.env
+Защита проекта «Антифрод без прослушки».pdf
+Защита обучения модели.docx
+Frontend/.vscode

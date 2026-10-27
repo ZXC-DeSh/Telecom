@@ -26,12 +26,15 @@ class AnalysisMetrics:
             self.critical_risk_calls,
         )
         if any(value < 0 for value in values):
-            raise ValueError("analysis metrics cannot be negative")
-        if self.processed_calls > self.total_calls or self.fraud_calls > self.processed_calls:
-            raise ValueError("analysis metrics counts are inconsistent")
+            raise ValueError("метрики анализа не могут быть отрицательными")
+        if (
+            self.processed_calls > self.total_calls
+            or self.fraud_calls > self.processed_calls
+        ):
+            raise ValueError("счётчики метрик анализа противоречат друг другу")
         risk_count = sum(values[3:])
         if risk_count != self.processed_calls:
-            raise ValueError("risk counts must sum to processed_calls")
+            raise ValueError("сумма уровней риска должна совпадать с processed_calls")
 
 
 @dataclass(frozen=True, slots=True)
@@ -51,8 +54,8 @@ class AnalysisJob:
     def __post_init__(self) -> None:
         object.__setattr__(self, "status", AnalysisStatus(self.status))
         if self.date_to < self.date_from:
-            raise ValueError("date_to must be greater than or equal to date_from")
+            raise ValueError("date_to должен быть не раньше date_from")
         if not 0 <= self.progress_percent <= 100:
-            raise ValueError("progress_percent must be between 0 and 100")
+            raise ValueError("progress_percent должен быть от 0 до 100")
         if self.metrics is not None and self.metrics.total_calls < 0:
-            raise ValueError("total_calls cannot be negative")
+            raise ValueError("total_calls не может быть отрицательным")

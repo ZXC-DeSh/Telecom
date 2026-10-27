@@ -26,5 +26,5 @@ class CheckServiceHealth:
     def _check(check: Callable[[], bool]) -> bool:
         try:
             return bool(check())
-        except Exception:  # noqa: BLE001 - any failed probe means not ready.
+        except Exception:
             return False

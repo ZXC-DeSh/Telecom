@@ -15,7 +15,9 @@ class RiskDistribution:
 
     def __post_init__(self) -> None:
         if not _non_negative(self.low, self.medium, self.high, self.critical):
-            raise ValueError("risk counts must be non-negative integers")
+            raise ValueError(
+                "счётчики уровней риска должны быть неотрицательными целыми числами"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -26,9 +28,11 @@ class TimelinePoint:
 
     def __post_init__(self) -> None:
         if not _non_negative(self.total_calls, self.suspicious_calls):
-            raise ValueError("timeline counts must be non-negative integers")
+            raise ValueError(
+                "счётчики временной шкалы должны быть неотрицательными целыми числами"
+            )
         if self.suspicious_calls > self.total_calls:
-            raise ValueError("suspicious_calls cannot exceed total_calls")
+            raise ValueError("suspicious_calls не может превышать total_calls")
 
 
 @dataclass(frozen=True, slots=True)
@@ -54,10 +58,15 @@ class DashboardSummary:
             self.risk_distribution.critical,
         )
         if not _non_negative(*counts):
-            raise ValueError("dashboard counts must be non-negative integers")
-        if self.analyzed_calls > self.total_calls or self.suspicious_calls > self.analyzed_calls:
-            raise ValueError("dashboard counts are inconsistent")
+            raise ValueError(
+                "счётчики панели должны быть неотрицательными целыми числами"
+            )
+        if (
+            self.analyzed_calls > self.total_calls
+            or self.suspicious_calls > self.analyzed_calls
+        ):
+            raise ValueError("счётчики панели противоречат друг другу")
         if sum(counts[4:]) != self.analyzed_calls:
-            raise ValueError("risk counts must sum to analyzed_calls")
+            raise ValueError("сумма уровней риска должна совпадать с analyzed_calls")
         if self.period_from and self.period_to and self.period_to < self.period_from:
-            raise ValueError("period_to must be greater than or equal to period_from")
+            raise ValueError("period_to должен быть не раньше period_from")
